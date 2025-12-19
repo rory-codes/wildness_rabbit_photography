@@ -1,0 +1,28 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Wilderness Rabbit</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+  <header>
+    <a href="/"><img src="{% static 'img/logo.png' %}" alt="Wilderness Rabbit" style="height:40px;"></a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/accounts/login/">Login</a>
+      <a href="/accounts/signup/">Sign up</a>
+    </nav>
+  </header>
+
+  {% if messages %}
+  <ul class="messages">
+    {% for m in messages %}<li>{{ m }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+
+  <main>{% block content %}{% endblock %}</main>
+</body>
+</html>
