@@ -9,7 +9,7 @@
 </head>
 <body>
   <header>
-    <a href="/"><img src="{% static 'img/logo.png' %}" alt="Wilderness Rabbit" style="height:40px;"></a>
+    <a class="fixed-top" href="/"><img src="{% static 'img/logo.png' %}" alt="Wilderness Rabbit" style="height:40px;"></a>
     <nav>
       <a href="/">Home</a>
       <a href="/accounts/login/">Login</a>
@@ -24,5 +24,12 @@
   {% endif %}
 
   <main>{% block content %}{% endblock %}</main>
+
+  <footer>
+    <p>&copy; 2024 Wilderness Rabbit Photography</p>
+    <a href="https://www.instagram.com">Instagram</a>
+    <a href="https://www.facebook.com">Facebook</a>
+    <a href="https://www.x.com">X</a>   
+  </footer>
 </body>
 </html>

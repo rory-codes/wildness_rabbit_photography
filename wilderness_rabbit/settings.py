@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
  
 from pathlib import Path
-import os  
+import os
+from dotenv import load_dotenv
+load_dotenv() 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
+    # 'allauth.socialaccount', 
     'crispy_forms',
     'catalog', 
     'cart', 
@@ -68,13 +69,13 @@ ROOT_URLCONF = "wilderness_rabbit.urls"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],   
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',#required by allauth
-                'django.contrib.auth.context_processors.auth', 
+                'django.template.context_processors.request',  # allauth needs this
+                'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -96,17 +97,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #allauth
 ACCOUNT_LOGIN_METHODS = {"email"}  
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
-ACCOUNT_USERNAME_MIN_LENGTH = 4
 
-# login
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/'
-
-# Email (Outlook SMTP)
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.office365.com")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
@@ -118,6 +111,8 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 WSGI_APPLICATION = 'wilderness_rabbit.wsgi.application'
 
+LOGIN_REDIRECT_URL = "/"              # after login
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"     # after logout (allauth)
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
