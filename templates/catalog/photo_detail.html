@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <article class="photo-detail">
+    <img src="{{ photo.image.url }}" alt="{{ photo.title }}">
+    <div>
+      <h1 class="h1">{{ photo.title }}</h1>
+      <p>{{ photo.description }}</p>
+      <p><strong>Quality:</strong> {{ photo.get_quality_display }}</p>
+
+      <h3 class="h2">Purchase options</h3>
+      <ul class="list-plain">
+        {% for v in variants %}
+          <li>
+            {{ v.kind|title }}
+            {% if v.size %} — {{ v.size }}{% endif %}
+            {% if v.finish %} / {{ v.finish|title }}{% endif %}
+            : £{{ v.price }}
+            <!-- Add-to-cart button goes here next -->
+          </li>
+        {% empty %}
+          <li>No variants yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </article>
+</section>
+{% endblock %}

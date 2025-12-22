@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <h1 class="h1">{{ collection.name }}</h1>
+  <p>{{ collection.description }}</p>
+
+  <div class="grid">
+    {% for p in photos %}
+      <a class="card" href="{% url 'catalog:photo' p.pk %}">
+        <img class="img-cover" src="{{ p.image.url }}" alt="{{ p.title }}">
+        <div>{{ p.title }}</div>
+      </a>
+    {% empty %}
+      <p>No photos in this collection yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

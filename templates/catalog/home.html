@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <h1 class="h1">Wilderness Rabbit</h1>
+
+  <h2 class="h2">Collections</h2>
+  <ul class="list-plain">
+    {% for c in collections %}
+      <li><a href="{% url 'catalog:collection' c.slug %}">{{ c.name }}</a></li>
+    {% empty %}
+      <li>No collections yet.</li>
+    {% endfor %}
+  </ul>
+
+  <h2 class="h2">Latest photos</h2>
+  <div class="grid">
+    {% for p in latest %}
+      <a class="card" href="{% url 'catalog:photo' p.pk %}">
+        <img class="img-cover" src="{{ p.image.url }}" alt="{{ p.title }}">
+        <div>{{ p.title }}</div>
+      </a>
+    {% empty %}
+      <p>Add some photos in admin.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

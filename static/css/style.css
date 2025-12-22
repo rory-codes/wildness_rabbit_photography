@@ -1,0 +1,179 @@
+/* Wilderness rabbit brand */
+:root {
+    --sage-700: #96A78D;
+    --sage-500: #B6CEB4;
+    --sage-200: #D9E9CF;
+    --neutral-50: #F0F0F0;
+    --text-strong: #1F2937;
+    --text-muted: #4B5563;
+}
+
+/* Layout */
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    color: var(--text-strong);
+    background: var(--neutral-50);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.header {
+    background: var(--sage-200);
+    border-bottom: 1px solid rgba(0, 0, 0, .06);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .75rem 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.brand img {
+    height: 40px;
+    width: 40px;
+    object-fit: contain
+}
+
+.brand-name {
+    font-weight: 600;
+    font-size: 1.25rem
+}
+
+.nav a {
+    color: var(--text-strong);
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.nav a:hover {
+    text-decoration: underline
+}
+
+/* Messages */
+.messages {
+    list-style: none;
+    margin: 0;
+    padding: .5rem 1rem;
+}
+
+.messages li {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, .08);
+    padding: .5rem .75rem;
+    border-radius: .5rem;
+    margin: .25rem 0;
+}
+
+/* Sections & Headings */
+.section {
+    padding: 2rem 0
+}
+
+.h1 {
+    font-size: 2rem;
+    margin: .25rem 0 1rem
+}
+
+.h2 {
+    font-size: 1.25rem;
+    margin: 1.5rem 0 .5rem
+}
+
+/* Grid & Cards */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+.card {
+    display: block;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: .5rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .06)
+}
+
+.img-cover {
+    width: 100%;
+    height: 140px;
+    object-fit: cover
+}
+
+.card-body {
+    padding: .5rem .75rem
+}
+
+/*  Photo detail */
+.photo-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.photo-detail img {
+    width: 100%;
+    object-fit: contain
+}
+
+@media (max-width: 900px) {
+    .photo-detail {
+        grid-template-columns: 1fr
+    }
+}
+
+/* Lists */
+.list-plain {
+    list-style: none;
+    margin: 0;
+    padding: 0
+}
+
+.list-plain li {
+    margin: .25rem 0
+}
+
+/* Buttons (for later cart/checkout) */
+.btn {
+    appearance: none;
+    border: 0;
+    border-radius: .5rem;
+    background: var(--sage-500);
+    color: white;
+    padding: .5rem .9rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn:hover {
+    background: var(--sage-700)
+}
