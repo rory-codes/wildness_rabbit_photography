@@ -52,8 +52,8 @@ body {
 }
 
 .brand img {
-    height: 40px;
-    width: 40px;
+    height: 60px;
+    width: 60px;
     object-fit: contain
 }
 
@@ -162,7 +162,7 @@ body {
     margin: .25rem 0
 }
 
-/* Buttons (for later cart/checkout) */
+/* Buttons */
 .btn {
     appearance: none;
     border: 0;
@@ -176,4 +176,65 @@ body {
 
 .btn:hover {
     background: var(--sage-700)
+}
+
+/* Hero */
+.hero {
+    position: relative;
+    background-image: url("/static/img/hero.JPEG");
+    background-size: cover;
+    background-position: center;
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+}
+
+.hero::after {
+    /* soft overlay for text contrast */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, .15));
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    padding: 4rem 1rem;
+}
+
+.hero-logo {
+    width: 100%;
+    height: 300px;
+    object-fit:contain;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .35));
+    object-position: left;
+    opacity: 0.93;
+
+}
+
+.hero-title {
+    font-size: 2rem;
+    margin: .75rem 0 0;
+    background-color: rgba(0, 0, 0, .40);
+}
+
+.hero-sub {
+    font-size: 1rem;
+    opacity: .9;
+    margin: .5rem 0 0;
+    background-color: rgba(0, 0, 0, .40);
+}
+
+@media (max-width: 680px) {
+    .hero {
+        min-height: 280px;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
 }

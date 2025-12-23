@@ -1,26 +1,37 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block hero %}
+<section class="hero">
+  <div class="hero-inner">
+    <img class="hero-logo" src="{% static 'img/logo.png' %}" alt="Wilderness Rabbit logo">
+    <h1 class="hero-title">Wildlife captured in calm and color</h1>
+    <p class="hero-sub">Prints & digital downloads • A5 / A4 / A3 - Matte or Gloss</p>
+    <p class="hero-sub">Photography provided for events & weddings - Use our enquiry form to send us a message!</p>
+  </div>
+</section>
+{% endblock %}
+
 {% block content %}
 <section class="section">
-  <h1 class="h1">Wilderness Rabbit</h1>
-
   <h2 class="h2">Collections</h2>
   <ul class="list-plain">
     {% for c in collections %}
-      <li><a href="{% url 'catalog:collection' c.slug %}">{{ c.name }}</a></li>
+    <li><a href="{% url 'catalog:collection' c.slug %}">{{ c.name }}</a></li>
     {% empty %}
-      <li>No collections yet.</li>
+    <li>No collections yet.</li>
     {% endfor %}
   </ul>
 
   <h2 class="h2">Latest photos</h2>
   <div class="grid">
     {% for p in latest %}
-      <a class="card" href="{% url 'catalog:photo' p.pk %}">
-        <img class="img-cover" src="{{ p.image.url }}" alt="{{ p.title }}">
-        <div>{{ p.title }}</div>
-      </a>
+    <a class="card" href="{% url 'catalog:photo' p.pk %}">
+      <img class="img-cover" src="{{ p.image.url }}" alt="{{ p.title }}">
+      <div class="card-body">{{ p.title }}</div>
+    </a>
     {% empty %}
-      <p>Add some photos in admin.</p>
+    <p>Add some photos in admin.</p>
     {% endfor %}
   </div>
 </section>
