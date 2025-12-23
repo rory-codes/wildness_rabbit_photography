@@ -7,7 +7,8 @@
   <title>{% block title %}Wilderness Rabbit{% endblock %}</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="icon" href="{% static 'img/favicon.ico' %}">
+  <link rel="icon" href="{% static 'img/favicon.png' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -26,19 +27,28 @@
         <a href="{% url 'cart:index' %}" class="btn">Bag <span class="badge">{{ cart_count|default:0 }}</span></a>
       </nav>
     </div>
-    </header>
+  </header>
 
-    {% block hero %}{% endblock %}
+  {% block hero %}{% endblock %}
 
-    {% if messages %}
-    <ul class="messages container">
-      {% for m in messages %}<li>{{ m }}</li>{% endfor %}
-    </ul>
-    {% endif %}
+  {% if messages %}
+  <ul class="messages container">
+    {% for m in messages %}<li>{{ m }}</li>{% endfor %}
+  </ul>
+  {% endif %}
 
-    <main id="main" class="container">
-      {% block content %}{% endblock %}
-    </main>
+  <main id="main" class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer fixed-bottom">
+    <p>&copy; 2025 Wilderness Rabbit Photography
+
+    <a class="footer-link" href="https://www.instagram.com"><i class="fa-brands fa-square-instagram"></i></a>
+    <a class="footer-link" href="https://www.facebook.com"><i class="fa-brands fa-square-facebook"></i></a>
+    </p>
+    
+  </footer>
 </body>
 
 </html>
