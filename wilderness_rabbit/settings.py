@@ -110,10 +110,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #allauth
 ACCOUNT_LOGIN_METHODS = {"email"}  
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
-ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.office365.com")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "rory.thompson@outlook.com")
@@ -130,17 +128,37 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "/"     # after logout (allauth)
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
+# --- DATABASES: use Postgres on Heroku, SQLite locally ---
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
+
+if DATABASE_URL:
+    DATABASES = {
         "default": dj_database_url.config(
-            default=os.getenv("DATABASE_URL"),
+            default=DATABASE_URL,
             conn_max_age=600,
             ssl_require=True,
         )
     }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 #cloudinay
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-CLOUDINARY_URL = os.getenv("CLOUDINARY_URL", "")
+USE_CLOUDINARY = bool(os.getenv("CLOUDINARY_URL", "").strip())
+if USE_CLOUDINARY:
+    # ensure these apps are installed only if you want them always available
+    if "cloudinary" not in INSTALLED_APPS:
+        INSTALLED_APPS += ["cloudinary", "cloudinary_storage"]
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+    MEDIA_URL = "/media/"
+    # MEDIA_ROOT not required with Cloudinary
+else:
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"
 
 # Security in production 
 if not DEBUG:
