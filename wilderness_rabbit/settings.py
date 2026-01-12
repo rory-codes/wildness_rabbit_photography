@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'enquiries',
     'cloudinary',
     'cloudinary_storage',
+    'whitenoise',
 ]
 
 MIDDLEWARE = (
@@ -131,41 +132,34 @@ ACCOUNT_LOGOUT_REDIRECT_URL = "/"     # after logout (allauth)
 # --- DATABASES: use Postgres on Heroku, SQLite locally ---
 DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 
-if DATABASE_URL:
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            ssl_require=True,
-        )
-    }
-else:
+# Database
+DATABASE_URL = os.getenv("DATABASE_URL", "")
+USE_SQLITE = (os.getenv("USE_SQLITE", "1" if DEBUG else "0") == "1")
+
+if USE_SQLITE or not DATABASE_URL:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
-
-#cloudinay
-USE_CLOUDINARY = bool(os.getenv("CLOUDINARY_URL", "").strip())
-if USE_CLOUDINARY:
-    # ensure these apps are installed only if you want them always available
-    if "cloudinary" not in INSTALLED_APPS:
-        INSTALLED_APPS += ["cloudinary", "cloudinary_storage"]
-    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-    MEDIA_URL = "/media/"
-    # MEDIA_ROOT not required with Cloudinary
 else:
+    DATABASES = {
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=not DEBUG,
+        )
+    }
+
+# Media storage
+CLOUDINARY_URL = os.getenv("CLOUDINARY_URL", "")
+if CLOUDINARY_URL:
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+else:
+    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
-
-# Security in production 
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
