@@ -1,1 +1,1 @@
-web: gunicorn wilderness_rabbit.wsgi:application
+web: gunicorn wilderness_rabbit.wsgi
