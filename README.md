@@ -13,6 +13,7 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
   - [Personas](#personas)
   - [User Stories (Agile)](#user-stories-agile)
   - [MoSCoW Prioritisation](#moscow-prioritisation)
+  - [Sprint Plan](#sprint-plan)
 - [Features](#features)
   - [Current](#current)
   - [Planned](#planned)
@@ -54,56 +55,56 @@ Stories are written in the format: _As a [persona], I want [goal] so I can [bene
 ### Must haves
 
 #### Browse the gallery (catalog list + pagination)
-**As a visitor, I want to browse the photo catalog so I can discover images to buy.**
+As a visitor, I want to browse the photo catalog so I can discover images to buy.
 
 #### View photo detail
-**As a visitor, I want a photo detail page so I can evaluate and buy.**
+As a visitor, I want a photo detail page so I can evaluate and buy.
 
 #### Cart: add/update/remove
-**As a shopper, I want to manage my cart so I can purchase multiple items.**
+As a shopper, I want to manage my cart so I can purchase multiple items.
 
 #### Checkout with Stripe
-**As a shopper, I want a secure checkout so I can pay and receive confirmation.**
+As a shopper, I want a secure checkout so I can pay and receive confirmation.
 
 #### Auth (signup/login/reset)
-**As a visitor, I want to create an account so I can track orders and checkout faster.**
+As a visitor, I want to create an account so I can track orders and checkout faster.
 
 #### Profile & Order History
-**As a customer, I want to update my profile and see past orders.**
+As a customer, I want to update my profile and see past orders.
 
 #### Testimonials & Enquiries
-**As a visitor, I want to leave feedback or ask a question.**
+As a visitor, I want to leave feedback or ask a question.
 
 #### Owner: manage catalog
-**As the photographer, I want to add/edit photos with prices and categories so I can run the shop.**
+As the photographer, I want to add/edit photos with prices and categories so I can run the shop.
 
 ### Should haves
 
 #### Search & Filters
-**As a visitor, I want to search and filter the gallery so I can find what I like quickly.**
+As a visitor, I want to search and filter the gallery so I can find what I like quickly.
 
 #### Favourites
-**As a customer, I want to favourite photos so I can revisit them later.**
+As a customer, I want to favourite photos so I can revisit them later.
 
 #### Performance and image optimisation
-**As a visitor, I want fast pages so the site feels snappy on mobile.**
+As a visitor, I want fast pages so the site feels snappy on mobile.
 
 #### Basic shipping and tax configuration
-**As a shopper, I want charges to be clear so there are no surprises.**
+As a shopper, I want charges to be clear so there are no surprises.
 
 #### Owner notifications 
-**As the photographer, I want alerts for new orders/enquiries so I can respond quickly.**
+As the photographer, I want alerts for new orders/enquiries so I can respond quickly.
 
 ### Could haves
 
 #### Discount codes
-**As a shopper, I want to apply a promo code so I can get a discount.**
+As a shopper, I want to apply a promo code so I can get a discount.
 
 #### Guest checkout
-**As a visitor, I want to check out as a guest so I don’t have to register.**
+As a visitor, I want to check out as a guest so I don’t have to register.
 
 #### Social media logins 
-**As a visitor, I want quick sign-in so I can avoid passwords.**
+As a visitor, I want quick sign-in so I can avoid passwords.
 
 
 ### MoSCoW Prioritisation
@@ -113,6 +114,38 @@ Stories are written in the format: _As a [persona], I want [goal] so I can [bene
 **Should haves:** 9) Search & filters, 10) Favourites, 11) Image optimisation, 12) Basic shipping/tax, 13) Owner notifications.
 
 **Could haves:** 14) Discount codes, 15) Guest checkout, 16) Social login.
+
+#### Sprint Plan (4 Sprints)
+
+Each sprint is one week roughly; all stories include tests and docs within the sprint’s scope.
+
+### Sprint 1 – Foundations & Auth (Must)
+
+Goals: Project scaffolding, deployment baseline, authentication. Scope (Stories): 1, 2, 7, 10, 12, 13, 11 (nav a11y basics).
+Deliverables: Working Django app on Heroku with web dyno; allauth flows; base templates; gallery & product detail read‑only; Cloudinary & WhiteNoise configured; error pages.
+Definition of Done: Deployed; lint passes; key happy‑path manual test plan complete. Risks/Mitigations: Env config drift → env sample & django-environ; Procfile/dynos → checklist.
+
+### Sprint 2 – Catalog & Cart (Must)
+
+Goals: Shoppable catalog and robust basket.
+Scope: 3, 4, 1 refinements (pagination/search UI polish), 11 (a11y focus states).
+Deliverables: Add/update/remove cart; totals; messages; responsive cards; category pages.
+DoD: Unit tests for cart math; a11y checks; pagination stable under >100 items.
+
+### Sprint 3 – Checkout & Orders (Must/Should)
+
+Goals: Payments, orders, profiles.
+Scope: 5, 6, 8, 18, 19.
+Deliverables: Stripe checkout + webhooks; order creation; email receipts; profile with order history & saved address.
+DoD: Test cards succeed/fail; webhook idempotency; email previews.
+
+### Sprint 4 – Content & Enhancements (Should/Could)
+
+Goals: Marketing & UX polish.
+Scope: 15, 16, 17, 20 and optional 22–27 depending on capacity.
+Deliverables: Search/filter/sort; testimonials with moderation; enquiry form; SEO/sitemap; optional wishlist/lightbox/coupons/blog.
+DoD: Lighthouse ≥ 90 perf/a11y/best‑practices; docs updated; release notes.
+
 
 ## Features
 
@@ -156,4 +189,5 @@ Stories are written in the format: _As a [persona], I want [goal] so I can [bene
 - **Static & WSGI:** WhiteNoise, Gunicorn
 - **Config:** `dj-database-url`, `python-dotenv`
 - **Hosting:** Heroku (Heroku‑24 stack)
+
 
