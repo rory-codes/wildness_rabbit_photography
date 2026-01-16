@@ -13,3 +13,8 @@ def add(request, variant_id):
     qty = int(request.POST.get("qty", 1))
     Cart(request).add(variant.id, variant.price, qty)
     return redirect("cart:detail")
+
+@require_POST
+def remove(request, variant_id):
+    Cart(request).remove(variant_id)
+    return redirect("cart:detail")
