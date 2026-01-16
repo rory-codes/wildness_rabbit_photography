@@ -2,6 +2,9 @@ from django.urls import path
 from . import views
 
 app_name = "cart"
+
 urlpatterns = [
-    path("", views.placeholder, name="index"),
+    path("", views.detail, name="detail"),
+    path("add/<int:variant_id>/", views.add, name="add"),
+    path("remove/<int:variant_id>/", views.remove, name="remove"),
 ]
