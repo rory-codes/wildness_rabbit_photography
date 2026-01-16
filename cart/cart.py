@@ -46,3 +46,6 @@ class Cart:
                 "price": price,
                 "subtotal": price * qty,
             }
+    
+    def total(self):
+        return sum(item["subtotal"] for item in self)
