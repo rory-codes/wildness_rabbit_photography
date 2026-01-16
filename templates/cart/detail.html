@@ -4,8 +4,24 @@
 <section class="section container">
   <h1 class="h2">Your cart</h1>
   <table class="table">
-    <thead></thead>
+    <thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Subtotal</th><th></th></tr></thead>
     <tbody>
+      {% for item in cart %}
+      <tr>
+        <td>{{ item.variant.photo.title }} — {{ item.variant.name }}</td>
+        <td>{{ item.qty }}</td>
+        <td>£{{ item.price }}</td>
+        <td>£{{ item.subtotal }}</td>
+        <td>
+          <form method="post" action="{% url 'cart:remove' item.variant.id %}">
+            {% csrf_token %}
+            <button class="btn btn-link">Remove</button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5">Your cart is empty.</td></tr>
+      {% endfor %}
     </tbody>
     <tfoot>
       <tr><th colspan="3" class="text-end">Total</th><th>£{{ cart.total }}</th><th></th></tr>
