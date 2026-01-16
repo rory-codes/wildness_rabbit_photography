@@ -49,3 +49,6 @@ class Cart:
     
     def total(self):
         return sum(item["subtotal"] for item in self)
+    
+    def count(self):
+        return sum(int(line.get("qty", 0)) for line in self.cart.values())
