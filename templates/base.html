@@ -7,7 +7,8 @@
   <title>{% block title %}Wilderness Rabbit{% endblock %}</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="icon" href="{% static 'img/favicon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+  <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -27,12 +28,12 @@
       </label>
 
       <nav id="site-nav" class="nav">
-        <a href="{% url 'catalog:home' %}" class="nav-link">Home</a>
+        <a href="{% url 'catalog:index' %}" class="nav-link">Home</a>
         <a href="{% url 'testimonials:index' %}" class="nav-link">Testimonials</a>
         <a href="{% url 'enquiries:index' %}" class="nav-link">Enquiries</a>
-        <a href="/accounts/login/" class="nav-link">Login</a>
-        <a href="/accounts/signup/" class="nav-link">Sign up</a>
-        <a href="{% url 'cart:index' %}" class="btn">Bag <span class="badge">{{ cart_count|default:0 }}</span></a>
+        <a href="{% url 'account_login' %}" class="nav-link">Login</a>
+        <a href="{% url 'account_signup' %}" class="nav-link">Sign up</a>
+        <a href="{% url 'cart:detail' %}" class="btn">Bag <span class="badge">{{ cart_count|default:0 }}</span></a>
       </nav>
     </div>
   </header>
