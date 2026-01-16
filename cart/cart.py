@@ -1,5 +1,7 @@
+# cart/cart.py
 from decimal import Decimal
 from django.conf import settings
+from catalog.models import ProductVariant
 
 CART_SESSION_KEY = "cart"
 
@@ -10,45 +12,50 @@ class Cart:
         if cart is None:
             cart = {}
             self.session[CART_SESSION_KEY] = cart
-        self.cart = cart
+        self._cart = cart
 
-    def add(self, variant_id, price, qty=1):
+    def add(self, variant_id: int, qty: int = 1, override: bool = False):
         key = str(variant_id)
-        line = self.cart.get(key, {"qty": 0, "price": str(price)})
-        line["qty"] = int(line["qty"]) + int(qty)
-        line["price"] = str(price)
-        self.cart[key] = line
-        self.session.modified = True
+        if key not in self._cart:
+            self._cart[key] = {"qty": 0}
+        self._cart[key]["qty"] = qty if override else self._cart[key]["qty"] + qty
+        if self._cart[key]["qty"] <= 0:
+            self._cart.pop(key, None)
+        self._save()
 
-    def remove(self, variant_id):
-        key = str(variant_id)
-        if key in self.cart:
-            del self.cart[key]
-            self.session.modified = True
+    def remove(self, variant_id: int):
+        self._cart.pop(str(variant_id), None)
+        self._save()
 
     def clear(self):
         self.session[CART_SESSION_KEY] = {}
+        self._cart = {}
         self.session.modified = True
 
-    def __iter__(self):
-        from catalog.models import ProductVariant
-        variant_ids = [int(k) for k in self.cart.keys()]
-        variants = {v.id: v for v in ProductVariant.objects.filter(id__in=variant_ids)}
-        for key, data in self.cart.items():
-            variant = variants.get(int(key))
+    def _save(self):
+        self.session[CART_SESSION_KEY] = self._cart
+        self.session.modified = True
+
+    def count(self) -> int:
+        return sum(item["qty"] for item in self._cart.values())
+
+    def items(self):
+        """Yields dicts: variant, qty, unit_price, subtotal"""
+        variant_map = {
+            v.id: v for v in ProductVariant.objects.filter(id__in=[int(k) for k in self._cart.keys()])
+        }
+        for key, data in self._cart.items():
+            variant = variant_map.get(int(key))
             if not variant:
                 continue
-            price = Decimal(data["price"])
+            unit = Decimal(variant.price)
             qty = int(data["qty"])
             yield {
                 "variant": variant,
                 "qty": qty,
-                "price": price,
-                "subtotal": price * qty,
+                "unit_price": unit,
+                "subtotal": unit * qty,
             }
-    
-    def total(self):
-        return sum(item["subtotal"] for item in self)
-    
-    def count(self):
-        return sum(int(line.get("qty", 0)) for line in self.cart.values())
+
+    def total(self) -> Decimal:
+        return sum(item["subtotal"] for item in self.items())
