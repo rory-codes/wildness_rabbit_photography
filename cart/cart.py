@@ -25,3 +25,24 @@ class Cart:
         if key in self.cart:
             del self.cart[key]
             self.session.modified = True
+
+    def clear(self):
+        self.session[CART_SESSION_KEY] = {}
+        self.session.modified = True
+
+    def __iter__(self):
+        from catalog.models import ProductVariant
+        variant_ids = [int(k) for k in self.cart.keys()]
+        variants = {v.id: v for v in ProductVariant.objects.filter(id__in=variant_ids)}
+        for key, data in self.cart.items():
+            variant = variants.get(int(key))
+            if not variant:
+                continue
+            price = Decimal(data["price"])
+            qty = int(data["qty"])
+            yield {
+                "variant": variant,
+                "qty": qty,
+                "price": price,
+                "subtotal": price * qty,
+            }
