@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path, include 
 from django.conf import settings
 from django.conf.urls.static import static
+from catalog import views as catalog_views
 
 urlpatterns = [
+    path("", catalog_views.home, name="index"),
     path('admin/', admin.site.urls),
     path("", include(("catalog.urls", "catalog"), namespace="catalog")),
     path('accounts/', include('allauth.urls')),
-    path("cart/", include("cart.urls")),
+    path("cart/", include(("cart.urls", "cart"), namespace="cart")),
     path("checkout/", include("checkout.urls")),
     path("orders/", include("orders.urls")),
     path("testimonials/", include("testimonials.urls")),
