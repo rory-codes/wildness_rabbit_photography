@@ -65,7 +65,7 @@ class ProductVariant(models.Model):
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default=GBP)
     is_active = models.BooleanField(default=True)
     stock = models.PositiveIntegerField(null=True, blank=True)  # prints only
-    # digital file to deliver post-purchase (optional now; can add later)
+    # digital file to deliver post-purchase 
     download_asset = models.FileField(upload_to="downloads/", blank=True)
     stripe_price_id = models.CharField(max_length=64, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
