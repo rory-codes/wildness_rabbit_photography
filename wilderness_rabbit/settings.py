@@ -127,6 +127,11 @@ WSGI_APPLICATION = 'wilderness_rabbit.wsgi.application'
 LOGIN_REDIRECT_URL = "/"              # after login
 ACCOUNT_LOGOUT_REDIRECT_URL = "/"     # after logout (allauth)
 
+#Stripe
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
+
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
