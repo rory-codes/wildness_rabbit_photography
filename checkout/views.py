@@ -43,5 +43,8 @@ def start_checkout(request):
     order.save()
     return redirect(session.url, permanent=False)
 
+def cancel(request):
+    return render(request, "checkout/cancel.html")
+
 def success(request):
     return render(request, "checkout/success.html")
