@@ -51,6 +51,9 @@
     <button class="btn" type="submit">Clear bag</button>
   </form>
 
-  <a class="btn" href="{% url 'checkout:start' %}">Checkout</a>
+  <form action="{% url 'checkout:start' %}" method="post">
+  {% csrf_token %}
+  <button class="btn btn-primary">Checkout</button>
+</form>
 {% endif %}
 {% endblock %}
