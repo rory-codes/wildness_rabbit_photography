@@ -47,4 +47,32 @@ def cancel(request):
     return render(request, "checkout/cancel.html")
 
 def success(request):
-    return render(request, "checkout/success.html")
+    """
+    Verify the session is paid; if so, clear cart and show success page.
+    """
+    session_id = request.GET.get("session_id")
+    if not session_id:
+        return redirect("cart:detail")
+
+    try:
+        session = stripe.checkout.Session.retrieve(session_id)
+    except Exception:
+        return redirect("cart:detail")
+
+    # If paid (or incomplete), mark as success UX and clear cart
+    if session.get("payment_status") == "paid":
+        try:
+            order = Order.objects.get(stripe_session_id=session_id)
+            if not order.paid:
+                order.paid = True
+                order.save()
+        except Order.DoesNotExist:
+            pass
+
+ # Clear the cart
+        Cart(request).clear()
+
+        return render(request, "checkout/success.html", {"session": session})
+
+    # Not paid? Send them back to cart.
+    return redirect("cart:detail")
