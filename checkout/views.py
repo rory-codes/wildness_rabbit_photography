@@ -48,7 +48,7 @@ def cancel(request):
 
 def success(request):
     """
-    Verify the session is paid; if so, clear cart and show success page.
+    Verify the Stripe session is paid; if so, show an order summary and clear cart.
     """
     session_id = request.GET.get("session_id")
     if not session_id:
@@ -59,20 +59,42 @@ def success(request):
     except Exception:
         return redirect("cart:detail")
 
-    # If paid (or incomplete), mark as success UX and clear cart
-    if session.get("payment_status") == "paid":
-        try:
-            order = Order.objects.get(stripe_session_id=session_id)
-            if not order.paid:
-                order.paid = True
-                order.save()
-        except Order.DoesNotExist:
-            pass
+    if session.get("payment_status") != "paid":
+        return redirect("cart:detail")
 
- # Clear the cart
-        Cart(request).clear()
+    order = None
+    items = []
+    total = 0
 
-        return render(request, "checkout/success.html", {"session": session})
+    try:
+        order = Order.objects.get(stripe_session_id=session_id)
+        order_items = (
+            OrderItem.objects
+            .filter(order=order)
+            .select_related("variant__photo")  
+        )
+        for it in order_items:
+            line_total = it.qty * it.price
+            items.append({
+                "title": getattr(it.variant.photo, "title", ""),
+                "variant": getattr(it.variant, "name", ""),
+                "qty": it.qty,
+                "price": it.price,
+                "line_total": line_total,
+            })
+            total += line_total
 
-    # Not paid? Send them back to cart.
-    return redirect("cart:detail")
+        if not order.paid:
+            order.paid = True
+            order.save()
+    except Order.DoesNotExist:
+        pass
+
+    # Clear the cart after a successful payment
+    Cart(request).clear()
+
+    return render(
+        request,
+        "checkout/success.html",
+        {"session": session, "order": order, "items": items, "total": total},
+    )
