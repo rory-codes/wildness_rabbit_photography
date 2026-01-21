@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.core.mail import send_mail
 import stripe
 from orders.models import Order
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @csrf_exempt
 def stripe_webhook(request):
@@ -18,19 +19,12 @@ def stripe_webhook(request):
         session = event["data"]["object"]
         try:
             order = Order.objects.get(stripe_session_id=session["id"])
-            if not order.paid:
-                order.paid = True
-                order.save()
-
-                # fire-and-forget confirmation 
-                if order.email:
-                    send_mail(
-                        subject="Your Wilderness Rabbit order",
-                        message="Thanks for your order! We’ll be in touch soon.",
-                        from_email=settings.DEFAULT_FROM_EMAIL,
-                        recipient_list=[order.email],
-                        fail_silently=True,
-                    )
+            order.paid = True
+            order.stripe_payment_intent = session.get("payment_intent", "")
+            order.total = (session.get("amount_total") or 0) / 100
+            order.currency = session.get("currency", "gbp")
+            order.save(update_fields=["paid", "stripe_payment_intent", "total", "currency"])
         except Order.DoesNotExist:
             pass
+
     return HttpResponse(status=200)
