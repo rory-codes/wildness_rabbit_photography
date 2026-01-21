@@ -1,9 +1,54 @@
 {% extends "base.html" %}
 {% block title %}Order complete{% endblock %}
+
 {% block content %}
 <section class="section">
-  <h1 class="h2">Thanks!</h1>
-  <p>Your payment completed successfully.</p>
-  <p><a class="btn" href="{% url 'catalog:index' %}">Continue browsing</a></p>
+  <h1 class="h1">
+    Thanks for your order{% if order %} #{{ order.id }}{% endif %}!
+  </h1>
+
+  {% if order and order.email %}
+    <p>We’ve sent a confirmation to <strong>{{ order.email }}</strong>.</p>
+  {% else %}
+    <p>Your order has been received.</p>
+  {% endif %}
+
+  {% if items %}
+    <h2 class="h2">Order summary</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Variant</th>
+            <th class="ta-right">Qty</th>
+            <th class="ta-right">Price</th>
+            <th class="ta-right">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for it in items %}
+            <tr>
+              <td>{{ it.title }}</td>
+              <td>{{ it.variant }}</td>
+              <td class="ta-right">{{ it.qty }}</td>
+              <td class="ta-right">£{{ it.price|floatformat:2 }}</td>
+              <td class="ta-right">£{{ it.line_total|floatformat:2 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4" class="ta-right">Grand total</th>
+            <th class="ta-right">£{{ total|floatformat:2 }}</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  {% endif %}
+
+  <p class="mt-4">
+    <a href="{% url 'catalog:index' %}" class="btn">Continue browsing</a>
+  </p>
 </section>
 {% endblock %}
