@@ -25,14 +25,18 @@
 
   <h2 class="h2">Latest photos</h2>
   <div class="grid">
-    {% for p in latest %}
+{% for p in latest %}
+  {% if p.image %}
     <a class="card" href="{% url 'catalog:photo' p.pk %}">
       <img class="img-cover" src="{{ p.image.url }}" alt="{{ p.title }}">
-      <div class="card-body">{{ p.title }}</div>
+      <div class="card-body">
+        <div class="card-title">{{ p.title }}</div>
+        <div class="card-sub">{{ p.collection.name }}</div>
+      </div>
     </a>
-    {% empty %}
-    <p>Add some photos in admin.</p>
-    {% endfor %}
+  {% endif %}
+{% endfor %}
+
   </div>
 </section>
 {% endblock %}

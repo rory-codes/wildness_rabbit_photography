@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from cloudinary.models import CloudinaryField
 
 GBP = "GBP"
 CURRENCY_CHOICES = [(GBP, "GBP")]
@@ -40,11 +41,10 @@ class Photo(models.Model):
     )
     title = models.CharField(max_length=160)
     description = models.TextField(blank=True)
-    # Dev: local media; later: S3 storage
-    image = models.ImageField(upload_to="photos/")
+    image = CloudinaryField("image")
     price = models.DecimalField(max_digits=9, decimal_places=2)  # base price
     quality = models.CharField(max_length=10, choices=QUALITY_CHOICES, default="standard")
-    is_published = models.BooleanField(default=True)
+    is_published = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

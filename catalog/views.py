@@ -8,7 +8,7 @@ def home(request):
     latest_qs = (
         Photo.objects.filter(is_published=True)
         .select_related("collection")
-        .order_by("-created_at")  
+        .order_by("-id")[:12]
     )
     paginator = Paginator(latest_qs, 12)
     page_obj = paginator.get_page(request.GET.get("page"))
