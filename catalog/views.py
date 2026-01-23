@@ -5,17 +5,18 @@ from .models import Collection, Photo, ProductVariant
 
 def home(request):
     cols = Collection.objects.filter(is_published=True).order_by("name")
-    latest_qs = (
-        Photo.objects.filter(is_published=True)
-        .select_related("collection")
-        .order_by("-id")[:12]
-    )
+    latest_qs = (Photo.objects.filter(is_published=True)
+                 .select_related("collection")
+                 .order_by("-id")[:12])
     paginator = Paginator(latest_qs, 12)
     page_obj = paginator.get_page(request.GET.get("page"))
     return render(
         request,
         "catalog/home.html",
-        {"collections": cols, "page_obj": page_obj},
+        {"collections": cols, 
+         "page_obj": page_obj,
+         "latest": page_obj, 
+         },
     )
 
 def collection_detail(request, slug):
@@ -25,8 +26,12 @@ def collection_detail(request, slug):
     page_obj = paginator.get_page(request.GET.get("page"))
     return render(
         request,
-        "catalog/collection_detail.html",
-        {"collection": col, "page_obj": page_obj},
+        "catalog/collection_detail.html",         
+        {
+            "collection": col,
+            "photos": page_obj,             
+            "page_obj": page_obj,           
+        },
     )
 
 def photo_detail(request, pk):

@@ -2,7 +2,12 @@
 {% block content %}
 <section class="section">
   <article class="photo-detail">
-    <img src="{{ photo.image.url }}" alt="{{ photo.title }}">
+    {% if photo.image %}
+    <img class="photo-img" src="{{ photo.image.url }}" alt="{{ photo.title|default:'Photo' }}" loading="lazy"
+      decoding="async">
+    {% else %}
+    <div class="photo-img placeholder" aria-hidden="true"></div>
+    {% endif %}
     <div>
       <h1 class="h1">{{ photo.title }}</h1>
       <p>{{ photo.description }}</p>
@@ -10,6 +15,7 @@
 
       <h3 class="h2">Purchase options</h3>
       <ul class="list-plain">
+        <li>
         {% for v in variants %}
         <form method="post" action="{% url 'cart:add' %}">
           {% csrf_token %}
@@ -23,6 +29,7 @@
             <button class="btn btn-primary">Add to cart</button>
           </div>
         </form>
+        </li>
         <hr>
         {% endfor %}
 
