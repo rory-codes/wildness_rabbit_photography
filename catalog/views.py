@@ -14,8 +14,6 @@ def home(request):
         request,
         "catalog/home.html",
         {"collections": cols, 
-         "page_obj": page_obj,
-         "latest": page_obj, 
          },
     )
 

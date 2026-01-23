@@ -14,60 +14,28 @@
 
 {% block content %}
 <section class="section">
-<h2 class="h2">Collections</h2>
+  <h1 class="h1">Collections</h1>
 
-<div class="accordion" id="collectionsAccordion">
-  {% for c in collections %}
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading-{{ c.slug }}">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapse-{{ c.slug }}" aria-expanded="false"
-              aria-controls="collapse-{{ c.slug }}">
-        {{ c.name }}
-      </button>
-    </h2>
-    <div id="collapse-{{ c.slug }}" class="accordion-collapse collapse"
-         aria-labelledby="heading-{{ c.slug }}" data-bs-parent="#collectionsAccordion">
-      <div class="accordion-body">
-        <a class="btn btn-sm btn-outline-primary" href="{% url 'catalog:collection' c.slug %}">
-          View collection
-        </a>
-        {% if c.photos.all|length %}
-          <div class="row row-cols-2 row-cols-md-3 g-2 mt-3">
-            {% for p in c.photos.all|slice:":6" %}
-              {% if p.is_published and p.image %}
-              <div class="col">
-                <a href="{% url 'catalog:photo' p.id %}" class="text-decoration-none">
-                  <img class="img-fluid rounded" src="{{ p.image.url }}" alt="{{ p.title }}">
-                  <div class="small mt-1">{{ p.title }}</div>
-                </a>
-              </div>
-              {% endif %}
-            {% endfor %}
-          </div>
-        {% endif %}
+  <div class="accordion" id="collectionsAccordion">
+    {% for c in collections %}
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading-{{ c.slug }}">
+      </h2>
+      <div id="collapse-{{ c.slug }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ c.slug }}"
+        data-bs-parent="#collectionsAccordion">
+        <div class="accordion-body">
+          <h3 class="h2" style="margin:0 0 .5rem">{{ c.name }}</h3>
+          <p class="mb-2">{{ c.photos.all|length }} items</p>
+          <a class="btn btn-sm btn-outline-primary" href="{% url 'catalog:collection' c.slug %}"
+            aria-label="View collection {{ c.name }}">
+            View collection
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-  {% empty %}
+    {% empty %}
     <p>No collections yet.</p>
-  {% endfor %}
-</div>
-
-  <h2 class="h2">Latest photos</h2>
-  <div class="grid">
-{% for p in latest %}
-  {% if p.image %}
-    <a class="card" href="{% url 'catalog:photo' p.pk %}">
-      <img class="img-cover" src="{{ p.image.url }}" alt="{{ p.title }}">
-      <div class="card-body">
-        <div class="card-title">{{ p.title }}</div>
-        <div class="card-sub">{{ p.collection.name }}</div>
-      </div>
-    </a>
-  {% endif %}
-{% endfor %}
-
+    {% endfor %}
   </div>
 </section>
 {% endblock %}
