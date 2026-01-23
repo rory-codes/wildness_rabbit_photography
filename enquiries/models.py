@@ -1,9 +1,10 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Enquiry(models.Model):
     name = models.CharField(max_length=120)
     email = models.EmailField()
-    contact = models.CharField(max_length=11, min_length=11, numeric=True)
+    contact = PhoneNumberField(region="GB", blank=True)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     is_resolved = models.BooleanField(default=False)

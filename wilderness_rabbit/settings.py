@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'whitenoise',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = (
