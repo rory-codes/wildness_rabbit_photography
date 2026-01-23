@@ -32,7 +32,7 @@ urlpatterns = [
     path("enquiries/", include(("enquiries.urls", "enquiries"), namespace="enquiries")),
     path("orders/", include("orders.urls")),
     path("testimonials/", include(("testimonials.urls", "testimonials"), namespace="testimonials")),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
 
-if settings.DEBUG:
+if settings.DEBUG and not settings.USE_CLOUDINARY:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <header class="header">
+  <header class="header" role="banner">
     <div class="container header-inner">
       <a href="{% url 'catalog:home' %}" class="brand">
         <img class="brand-logo" src="{% static 'img/logo.png' %}" alt="Wilderness Rabbit">
@@ -27,12 +27,18 @@
         <span class="nav-toggle-bar"></span>
       </label>
 
-      <nav id="site-nav" class="nav">
+      <nav id="site-nav" class="nav" aria-label="Main" role="navigation">
         <a href="{% url 'catalog:index' %}" class="nav-link">Home</a>
         <a href="{% url 'testimonials:index' %}" class="nav-link">Testimonials</a>
         <a href="{% url 'enquiries:index' %}" class="nav-link">Enquiries</a>
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
+        {% else %}
         <a href="{% url 'account_login' %}" class="nav-link">Login</a>
         <a href="{% url 'account_signup' %}" class="nav-link">Sign up</a>
+        {% endif %}
+
         <a href="{% url 'cart:detail' %}" class="btn">Bag <span class="badge">{{ cart_count|default:0 }}</span></a>
       </nav>
     </div>
@@ -47,11 +53,11 @@
   </ul>
   {% endif %}
 
-  <main id="main" class="container">
+  <main id="main" class="container" tabindex="-1" role="main">
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="footer fixed-bottom">
+  <footer class="footer fixed-bottom" role="copyrightinfo">
     <p>&copy; 2025 Wilderness Rabbit Photography
 
       <a class="footer-link" href="https://www.instagram.com"><i class="fa-brands fa-square-instagram"></i></a>
