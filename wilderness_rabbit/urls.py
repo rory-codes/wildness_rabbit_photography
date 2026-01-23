@@ -21,15 +21,15 @@ from django.conf.urls.static import static
 from catalog import views as catalog_views
 
 urlpatterns = [
-    path("", catalog_views.home, name="index"),
-    path('admin/', admin.site.urls),
+    #path("", catalog_views.home, name="home"),
     path("", include(("catalog.urls", "catalog"), namespace="catalog")),
     path('accounts/', include('allauth.urls')),
+    path('admin/', admin.site.urls),
     path("cart/", include(("cart.urls", "cart"), namespace="cart")),
     path("checkout/", include(("checkout.urls", "checkout"), namespace="checkout")),
+    path("enquiries/", include(("enquiries.urls", "enquiries"), namespace="enquiries")),
     path("orders/", include("orders.urls")),
     path("testimonials/", include(("testimonials.urls", "testimonials"), namespace="testimonials")),
-    path("enquiries/", include(("enquiries.urls", "enquiries"), namespace="enquiries")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

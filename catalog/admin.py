@@ -3,6 +3,7 @@ from .models import Collection, Photo, ProductVariant
 
 @admin.register(Collection)
 class CollectionAdmin(admin.ModelAdmin):
+    is_published = True
     list_display = ("name", "slug", "is_published", "created_at")
     prepopulated_fields = {"slug": ("name",)}
     search_fields = ("name",)
@@ -11,6 +12,7 @@ class CollectionAdmin(admin.ModelAdmin):
 
 @admin.register(Photo)
 class PhotoAdmin(admin.ModelAdmin):
+    is_published = True
     list_display = ("title", "collection", "price", "quality", "is_published", "created_at")
     list_filter = ("collection", "quality", "is_published")
     search_fields = ("title", "description")

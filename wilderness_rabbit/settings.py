@@ -117,12 +117,18 @@ ACCOUNT_LOGIN_METHODS = {"email"}
 
 # email REQUIRED at signup
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
-
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
+# Send users home after login/signup/logout
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+ACCOUNT_SIGNUP_REDIRECT_URL = "/"
+
+#forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5"]
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+#Email set up
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.office365.com")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "rory.thompson@outlook.com")
@@ -208,8 +214,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+#static
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+#media
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
