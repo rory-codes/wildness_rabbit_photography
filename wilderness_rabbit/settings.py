@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.account',
     # 'allauth.socialaccount', 
     'crispy_forms',
+    'crispy_bootstrap5',
     'catalog', 
     'cart', 
     'checkout',
@@ -110,10 +111,17 @@ SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-#allauth
-ACCOUNT_LOGIN_METHODS = {"email"}  
+#allauth 
+# Login with email 
+ACCOUNT_LOGIN_METHODS = {"email"}
+
+# email REQUIRED at signup
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5"]
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.office365.com")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
@@ -125,8 +133,6 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 WSGI_APPLICATION = 'wilderness_rabbit.wsgi.application'
 
-LOGIN_REDIRECT_URL = "/"              # after login
-ACCOUNT_LOGOUT_REDIRECT_URL = "/"     # after logout (allauth)
 
 #Stripe
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
