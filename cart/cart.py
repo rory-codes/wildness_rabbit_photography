@@ -59,3 +59,7 @@ class Cart:
 
     def total(self) -> Decimal:
         return sum(item["subtotal"] for item in self.items())
+    
+    def __iter__(self):
+        for row in self.items():
+            yield row
