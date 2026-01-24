@@ -27,7 +27,7 @@ def collection_detail(request, slug):
         "catalog/collection_detail.html",         
         {
             "collection": col,
-            "photos": page_obj,             
+            "photos": page_obj.object_list,              
             "page_obj": page_obj,           
         },
     )

@@ -8,32 +8,39 @@
     {% else %}
     <div class="photo-img placeholder" aria-hidden="true"></div>
     {% endif %}
+
     <div>
       <h1 class="h1">{{ photo.title }}</h1>
       <p>{{ photo.description }}</p>
       <p><strong>Quality:</strong> {{ photo.get_quality_display }}</p>
 
       <h3 class="h2">Purchase options</h3>
+
+      {% if variants %}
       <ul class="list-plain">
+        {% for v in variants %}
         <li>
-          {% for v in variants %}
-          <form method="post" action="{% url 'cart:add' %}">
+          <form method="post" action="{% url 'cart:add' v.id %}">
             {% csrf_token %}
             <div class="d-flex gap-2 align-items-end">
               <div>
                 {{ v.kind|upper }}{% if v.size %} • {{ v.size }}{% endif %}{% if v.finish %} • {{ v.finish }}{% endif %}
               </div>
               <div>£{{ v.price }}</div>
-              <input type="hidden" name="variant_id" value="{{ v.id }}">
+
+              {# hidden is optional now; cart view already gets the id from the URL #}
+              <!-- <input type="hidden" name="variant_id" value="{{ v.id }}"> -->
+
               <input type="number" name="quantity" min="1" value="1" class="form-control" style="max-width:90px">
               <button class="btn btn-primary">Add to cart</button>
             </div>
           </form>
         </li>
-        <hr>
         {% endfor %}
-
       </ul>
+      {% else %}
+      <p>No purchase options available.</p>
+      {% endif %}
     </div>
   </article>
 </section>
