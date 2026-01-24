@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
-from catalog import views as catalog_views
+from django.templatetags.static import static
 
 urlpatterns = [
     #path("", catalog_views.home, name="home"),
@@ -32,7 +32,11 @@ urlpatterns = [
     path("enquiries/", include(("enquiries.urls", "enquiries"), namespace="enquiries")),
     path("orders/", include("orders.urls")),
     path("testimonials/", include(("testimonials.urls", "testimonials"), namespace="testimonials")),
-    path("favicon.ico", RedirectView.as_view(url=static("favicon/favicon.ico"), permanent=False)),
+    path(
+        "favicon.ico",
+        RedirectView.as_view(url=static("favicon/favicon.ico"), permanent=True),
+        name="favicon",
+    ),
 ] 
 
 if settings.DEBUG and not settings.USE_CLOUDINARY:

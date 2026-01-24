@@ -1,0 +1,2 @@
+GET /static/favicon/favicon.svg 200 **0 bytes**
+GET /static/favicon/favicon.ico 200 **0 bytes** (or 304)
