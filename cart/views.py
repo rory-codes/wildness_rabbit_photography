@@ -2,7 +2,6 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.urls import reverse
 from .cart import Cart
-from .forms import AddToCartForm
 from catalog.models import ProductVariant
 
 def detail(request):
@@ -15,22 +14,47 @@ def detail(request):
 
 @require_POST
 def add(request):
-    form = AddToCartForm(request.POST)
-    if form.is_valid():
-        variant = get_object_or_404(ProductVariant, pk=form.cleaned_data["variant_id"], is_active=True)
-        qty = form.cleaned_data["quantity"]
-        Cart(request).add(variant.id, qty=qty)
-    return redirect(reverse("cart:detail"))
+    # POSTed from the photo page
+    variant_id = request.POST.get("variant_id")
+    if not variant_id:
+        return redirect("cart:detail")
+
+    try:
+        quantity = int(request.POST.get("quantity", "1"))
+        if quantity < 1:
+            quantity = 1
+    except (TypeError, ValueError):
+        quantity = 1
+
+    variant = get_object_or_404(ProductVariant, pk=variant_id)
+
+    cart = Cart(request)
+    cart.add(variant_id=variant.id, qty=quantity, override=False)
+
+    return redirect("cart:detail")
 
 @require_POST
 def update(request, variant_id: int):
-    qty = int(request.POST.get("quantity", "1"))
-    Cart(request).add(variant_id, qty=qty, override=True)
+    try:
+        qty = int(request.POST.get("quantity", "1"))
+        if qty < 1:
+            qty = 1
+    except (TypeError, ValueError):
+        qty = 1
+
+    # make sure the variant exists
+    variant = get_object_or_404(ProductVariant, pk=variant_id)
+
+    cart = Cart(request)
+    # Same param names as in add()
+    cart.add(variant_id=variant.id, qty=qty, override=True)
+
     return redirect(reverse("cart:detail"))
 
 @require_POST
 def remove(request, variant_id: int):
-    Cart(request).remove(variant_id)
+    cart = Cart(request)
+    cart.remove(variant_id)
     return redirect(reverse("cart:detail"))
 
 @require_POST
