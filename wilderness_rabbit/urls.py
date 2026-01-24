@@ -32,6 +32,7 @@ urlpatterns = [
     path("enquiries/", include(("enquiries.urls", "enquiries"), namespace="enquiries")),
     path("orders/", include("orders.urls")),
     path("testimonials/", include(("testimonials.urls", "testimonials"), namespace="testimonials")),
+    path("favicon.ico", RedirectView.as_view(url=static("favicon/favicon.ico"), permanent=False)),
 ] 
 
 if settings.DEBUG and not settings.USE_CLOUDINARY:
