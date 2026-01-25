@@ -162,6 +162,7 @@ DoD: Lighthouse ≥ 90 perf/a11y/best‑practices; docs updated; release notes.
 ![Flow diagram](assets/read_me_img/flow_diagram.png)
 ![Stripe flow diagram](assets/read_me_img/stripe_flow_diagram.png)
 ![Admin/Photographer flow diagram](assets/read_me_img/admin_photographer_flow.png)
+![Admin/Photographer flow diagram](assets/read_me_img/photo_variant_cloudinary_flow.png)
 
 
 ## Security, Performance & Accessibility
