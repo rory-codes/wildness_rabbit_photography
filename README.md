@@ -50,8 +50,6 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 | **Admin (Technical)** | Keeps the site healthy | Manage staff/admin access, view logs, moderate content |
 
 ### User Stories (Agile)
-Stories are written in the format: _As a [persona], I want [goal] so I can [benefit]._  Each has **Acceptance Criteria** in **G/W/T** (Given / When / Then) style and **Tasks**.
-
 ### Must haves
 
 #### Browse the gallery (catalog list + pagination)
@@ -106,15 +104,6 @@ As a visitor, I want to check out as a guest so I don’t have to register.
 #### Social media logins 
 As a visitor, I want quick sign-in so I can avoid passwords.
 
-
-### MoSCoW Prioritisation
-
-**Must haves (MVP):** 1) Browse gallery, 2) Photo detail, 3) Cart, 4) Checkout (Stripe), 5) Auth, 6) Profile & orders, 7) Testimonials/Enquiries, 8) Owner catalog management via admin.
-
-**Should haves:** 9) Search & filters, 10) Favourites, 11) Image optimisation, 12) Basic shipping/tax, 13) Owner notifications.
-
-**Could haves:** 14) Discount codes, 15) Guest checkout, 16) Social login.
-
 #### Sprint Plan (4 Sprints)
 
 Each sprint is one week roughly; all stories include tests and docs within the sprint’s scope.
@@ -149,6 +138,13 @@ DoD: Lighthouse ≥ 90 perf/a11y/best‑practices; docs updated; release notes.
 
 ## Features
 
+### System design
+#### Wireframes
+![Desktop](assets/wireframes/wireframe_desktop.png)
+![Tablet](assets/wireframes/wireframe_tablet.png)
+![mobile](assets/wireframes/wireframe_mobile.png)
+
+
 ### Current
 - Responsive gallery grid with server‑side pagination
 - Photo detail pages (Cloudinary responsive images)
@@ -159,18 +155,13 @@ DoD: Lighthouse ≥ 90 perf/a11y/best‑practices; docs updated; release notes.
 - Testimonials (with admin approval) & enquiries
 - Django admin for catalog management
 - Static files via WhiteNoise; production ready Procfile
-
-### Planned
-- Search & filter sidebar
-- Favourites (wishlist)
-- Coupons/discount codes
-- Flat shipping/tax configuration
-- Owner notifications for orders/enquiries
-- Basic analytics dashboard
-
 ---
 
-## Data Model
+## Data Model/System design
+![ER diagram](assets/wireframes/er_diagram.png)
+![Flow diagram](assets/wireframes/flow_diagram.png)
+![Stripe flow diagram](assets/wireframes/stripe_flow_diagram.png)
+![Admin/Photographer flow diagram](assets/wireframes/admin_photographer_flow.png)
 
 
 ## Security, Performance & Accessibility
