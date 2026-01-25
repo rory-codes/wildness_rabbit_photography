@@ -158,10 +158,10 @@ DoD: Lighthouse ≥ 90 perf/a11y/best‑practices; docs updated; release notes.
 ---
 
 ## Data Model/System design
-![ER diagram](assets/wireframes/er_diagram.png)
-![Flow diagram](assets/wireframes/flow_diagram.png)
-![Stripe flow diagram](assets/wireframes/stripe_flow_diagram.png)
-![Admin/Photographer flow diagram](assets/wireframes/admin_photographer_flow.png)
+![ER diagram](assets/read_me_img/er_diagram.png)
+![Flow diagram](assets/read_me_img/flow_diagram.png)
+![Stripe flow diagram](assets/read_me_img/stripe_flow_diagram.png)
+![Admin/Photographer flow diagram](assets/read_me_img/admin_photographer_flow.png)
 
 
 ## Security, Performance & Accessibility
