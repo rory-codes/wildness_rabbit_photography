@@ -48,7 +48,11 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 - [Issues/Fixes](#issuesfixes)
   - [Unfixed / Known Issues](#unfixed--known-issues)
   - [Recently Fixed](#recently-fixed)
-- [FutureReleases](#future-releases)
+- [Future Releases](#future-releases)
+  - [Planned Enhancements](#planned-enhancements)
+- [Credits & Thanks](#credits-thanks)
+  - [Credits](#credits)
+  - [Thanks](#thanks)
 
 ---
 
@@ -360,6 +364,10 @@ The application required substantial testing to ensure that it worked locally an
 **Postfixes**
 
 #### Pytest
+**Pytest was used for automated backend testing to verify core application behaviour such as views, models, and form validation.**
+* Model validation: product and variant constraints (e.g., required fields, unique combinations, valid pricing/stock rules).
+* Form validation: enquiries and testimonials (valid submissions, required fields, invalid input handling).
+* Views: expected status codes, redirects, and correct template rendering for key pages.
 
 ## Issues/Fixes
 During and after development a number of issues were present and this involved fixes and workarounds to ensure the application was ready for submission by the submission data. 
@@ -413,3 +421,41 @@ During and after development a number of issues were present and this involved f
 ## Future releases
 The development forecast involved more features but unfortunately due to time restraints and other commitments, the following were not implemented and therefore, future releases will focus on the following:
 
+### Planned Enhancements
+* **Search and filtering:** Keyword search across photo titles, descriptions, and categories. Filter by price, orientation, availability, and collections.
+* **Favourites / Wishlist:** Allow registered users to save favourite images. Display favourites in the user profile for quick access.
+* **Guest checkout:** Enable purchases without account creation while still offering optional signup.
+* **Email-based order confirmation for guest users.**
+* **Discount codes & promotions:** Support promotional codes and limited-time offers. Admin-controlled discount creation and expiry.
+* **Enhanced image performance:** Improved responsive images using srcset. Additional Cloudinary transformations and lazy-loading optimisations.
+* **Expanded order management:**
+* **Order status tracking (e.g. processing, dispatched, completed):** Customer notifications for order status updates.
+* **Blog / content pages:** Editorial content to support SEO and marketing.
+* **Featured images with fallback handling.**
+* **Social authentication:** Optional login via Google or other social providers.
+* **Advanced analytics:** Integration with analytics tools to track engagement and conversion rates.
+
+## Credits & Thanks
+As always with any development project I need to give credit to external sources. Without them this application development would not have been possible.
+
+### Credits
+* GitHub – Used for version control, repository hosting, and project planning.
+* Slack, Stack Overflow & Discord – Community resources used for troubleshooting, research, and best-practice guidance.
+* Code Institute – Reference materials and examples were consulted during development.
+* Bootstrap 5.3 – Used as the primary CSS framework to structure the layout, including the navigation bar and card components, ensuring consistent styling and responsive behaviour across devices.
+* JavaScript – Used to support interactive and responsive elements, particularly in conjunction with Bootstrap components (e.g. collapsible navigation).
+* Git – Used for source control and managing commits throughout development.
+* Visual Studio Code (VS Code) – Used as the primary code editor for all development work.
+* Django & Heroku – Django was used as the backend framework, with Heroku used for deployment and hosting.
+* Google Fonts – Used to import and apply typography across the site.
+* Canva – Used to design the project logo and supporting brand assets.
+* Font Awesome – Used to provide scalable vector icons throughout the interface.
+* Balsamiq – Used to create wireframes during the planning and design phase.
+* Color Hunt – Used to select and refine the project colour palette.
+* Mermaid – Used to create the data model and flow diagrams (e.g., ERD and process flows) for the README documentation.
+
+### Thanks
+* I would like to thanks Code Institute for the LMS system that allowed me to learn to use various software languages.
+* I would like to thank West Herts college for allowing me enrol and learn via the college.
+* I would like to thank Wendy Purdy for her commitment to meetings (in the evenings) and engaging teaching.
+* I would like to thank my wife for putting up with me during stressful periods throughout this past year.
