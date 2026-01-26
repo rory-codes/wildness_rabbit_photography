@@ -404,6 +404,10 @@ During and after development a number of issues were present and this involved f
 * Workaround: Keep images reasonably sized and compressed before upload.
 * Fix planned: Add responsive images (srcset), stronger compression, lazy loading, and caching headers/CDN strategy where applicable.
 
+  **Issue #5: Posting Testimonial Runs 500 Error**
+* Issue: When submitting a testimonial as a signed user, 500 page error runs and testimonial is still posted.
+* Status: Unfixed (planned improvement).
+
 ### Recently Fixed
 **Fix #1: Favicon typo causing 404 / console noise**
 * Issue: Browser requested favicon but received 404 due to incorrect path/name.
