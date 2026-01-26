@@ -151,6 +151,14 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 ---
 
 ## Deployment
+### Version control
+The site was developed in VS Code (vitual studio) and pushed through to the wilderness_rabbit_photography repository (Github).
+
+Common git commands used in development envionment:
+* git add <file>
+* git commit -m "commit message contents e.g: Update readme"
+* git push
+  
 ### Set up
 #### Create and activate virtual enviromnent (venv):
 * python -m venv .venv 
