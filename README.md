@@ -2,7 +2,7 @@
 
 A Django-powered portfolio & print store for a photographer. Browse a curated catalog, add favourites to a cart, and pay securely with Stripe. Images are served from Cloudinary for fast, responsive delivery.
 
-![Hero screenshot placeholder](assets/read_me_img/mockup.png)
+![Mockup](assets/read_me_img/mockup.png)
 
  **Live site:** <https://wilderness-rabbit-47634ce133dc.herokuapp.com>  
  **Repository:** <https://github.com/rory-codes/wildness_rabbit_photography>
@@ -177,12 +177,16 @@ The application uses data to help users as a primary tool to allow users to buy 
 
 ### Entity relationship diagram
 ![ER diagram](assets/read_me_img/er_diagram.png)
+
 ### Flow diagram
 ![Flow diagram](assets/read_me_img/flow_diagram.png)
+
 ### Stripe flow diagram
 ![Stripe flow diagram](assets/read_me_img/stripe_flow_diagram.png)
+
 ### Admin flow diagram
 ![Admin/Photographer flow diagram](assets/read_me_img/admin_photographer_flow.png)
+
 ### Photo/photo variant/cloudinary flow diagram
 ![Photo/variant/cloudinary flow diagram](assets/read_me_img/photo_variant_cloudinary_flow.png)
 
@@ -345,23 +349,24 @@ The application required substantial testing to ensure that it worked locally an
 ### Automated testing
 #### Lighthouse 
 **Prefixes**
+![Lighthouse Pre-fixes](assets/read_me_img/lighthouse_pre.png)
 **Postfixes**
 
 #### Wave (Accessibility)
 **Prefixes**
+![Lighthouse Pre-fixes](assets/read_me_img/wave_pre.png)
 **Postfixes**
 
 #### HTML Validator
 **Prefixes**
+![Lighthouse Pre-fixes](assets/read_me_img/html_pre.png)
 **Postfixes**
 
 #### CSS Validator
-**Prefixes**
-**Postfixes**
+![Lighthouse Pre-fixes](assets/read_me_img/validation_css.png)
 
-#### Jest
-**Prefixes**
-**Postfixes**
+#### JsHint
+![Lighthouse Pre-fixes](assets/read_me_img/validation_jshint.png)
 
 #### Pytest
 **Pytest was used for automated backend testing to verify core application behaviour such as views, models, and form validation.**
