@@ -3,10 +3,9 @@
 <section class="section">
   <article class="photo-detail">
     {% if photo.image %}
-    <img class="photo-img" src="{{ photo.image.url }}" alt="{{ photo.title|default:'Photo' }}" loading="lazy"
-      decoding="async">
+      <img class="photo-img" src="{{ photo.image.url }}" alt="{{ photo.title|default:'Photo' }}" loading="lazy" decoding="async">
     {% else %}
-    <div class="photo-img placeholder" aria-hidden="true"></div>
+      <div class="photo-img placeholder" aria-hidden="true"></div>
     {% endif %}
 
     <div>
@@ -16,52 +15,54 @@
 
       <h3 class="h2">Purchase options</h3>
 
-      {% if variants %}
-      <div class="variant-list">
-        {% for variant in variants %}
-        {% if v.kind == "digital" and v.is_active and v.stock|default:0 > 0 %}
-        <div class="variant-card">
-          <div class="variant-name">Digital download</div>
-          <div class="variant-name">{{ variant.name }}</div>
-          <div class="variant-price">£{{ v.price|floatformat:2 }}</div>
-
-          <form method="post" action="{% url 'cart:add' %}">
-            {% csrf_token %}
-            <input type="hidden" name="variant_id" value="{{ v.id }}">
-            <label>
-              Qty
-              <input type="number" name="quantity" min="1" value="1">
-            </label>
-            <button class="btn">Add to bag</button>
-          </form>
-        </div>
-        {% endif %}
-        {% endfor %}
-        <div class="variant-list">
+      {% with variants=photo.variants.filter(is_active=True, stock__gt=0) %}
+        {% if variants %}
+          {# Digital option #}
           {% for v in variants %}
-          {% if v.kind == "print" and v.is_active and v.stock|default:0 > 0 %}
-          <div class="variant-card">
-            <div class="variant-name">
-              {{ v.size }} {{ v.finish|title }} print
-            </div>
-            <div class="variant-price">£{{ v.price|floatformat:2 }}</div>
-            <form method="post" action="{% url 'cart:add' %}">
-              {% csrf_token %}
-              <input type="hidden" name="variant_id" value="{{ v.id }}">
-              <label>
-                Qty
-                <input type="number" name="quantity" min="1" value="1">
-              </label>
-              <button class="btn">Add to bag</button>
-            </form>
-          </div>
-          {% endif %}
+            {% if v.kind == "digital" %}
+              <div class="variant-card">
+                <div class="variant-name">Digital download</div>
+                <div class="variant-price">£{{ v.price|floatformat:2 }}</div>
+
+                <form method="post" action="{% url 'cart:add' %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="variant_id" value="{{ v.id }}">
+                  <label>
+                    Qty
+                    <input type="number" name="quantity" min="1" value="1">
+                  </label>
+                  <button class="btn">Add to bag</button>
+                </form>
+              </div>
+            {% endif %}
           {% endfor %}
-        </div>
+
+          {# Print options #}
+          <div class="variant-list">
+            {% for v in variants %}
+              {% if v.kind == "print" %}
+                <div class="variant-card">
+                  <div class="variant-name">{{ v.size }} {{ v.finish|title }} print</div>
+                  <div class="variant-price">£{{ v.price|floatformat:2 }}</div>
+
+                  <form method="post" action="{% url 'cart:add' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="variant_id" value="{{ v.id }}">
+                    <label>
+                      Qty
+                      <input type="number" name="quantity" min="1" value="1">
+                    </label>
+                    <button class="btn">Add to bag</button>
+                  </form>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
         {% else %}
-        <p>No purchasable variants for this photo.</p>
+          <p>No purchasable variants for this photo.</p>
         {% endif %}
-      </div>
+      {% endwith %}
+    </div>
   </article>
 </section>
 {% endblock %}
