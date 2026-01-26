@@ -46,10 +46,12 @@
     </tfoot>
   </table>
 
-  <form classaction="{% url 'checkout:start' %}" method="post">
-  {% csrf_token %}
-  <button class="btn btn-primary">Checkout</button>
-  <p><button href="{% url 'catalog:index' %}" class="btn btn-primary">Continue browsing</button></p>
-</form>
+   <div class="form">
+      <a class="btn btn-primary" href="{% url 'catalog:index' %}">Continue browsing</a>
+      <form action="{% url 'checkout:start' %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit">Checkout</button>
+      </form>
+    </div>
 {% endif %}
 {% endblock %}
