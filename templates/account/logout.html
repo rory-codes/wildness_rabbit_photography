@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section container">
+  <h1 class="h1">Sign out</h1>
+  <p>Are you sure you want to sign out?</p>
+
+  <form method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    <button class="btn btn-primary" type="submit">Sign out</button>
+    <button class="btn" href="{% url 'catalog:index' %}">Cancel</button>
+  </form>
+</section>
+{% endblock %}

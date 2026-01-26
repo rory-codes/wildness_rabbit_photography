@@ -140,7 +140,9 @@ ACCOUNT_LOGIN_METHODS = {"email"}
 
 # email REQUIRED at signup
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none"   # was "mandatory" or "optional"
+ACCOUNT_EMAIL_REQUIRED = True         # keep True if you still want to collect an email
+ACCOUNT_AUTHENTICATION_METHOD = "email" 
 
 # Send users home after login/signup/logout
 LOGIN_REDIRECT_URL = "/"
@@ -150,15 +152,6 @@ ACCOUNT_SIGNUP_REDIRECT_URL = "/"
 #forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5"]
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
-#Email set up
-EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.office365.com")
-EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "rory.thompson@outlook.com")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "rory.thompson@outlook.com")
-SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 WSGI_APPLICATION = 'wilderness_rabbit.wsgi.application'
 
