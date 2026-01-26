@@ -10,12 +10,12 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
  ## Table of Contents
 - [Overview](#overview)
 - [UX](#ux)
-  - [Personas](#personas)
+  - [User profiles](#User-profiles)
   - [User Stories (Agile)](#user-stories-agile)
-  - [MoSCoW Prioritisation](#moscow-prioritisation)
+  - [MoSCoW](#moscow)
   - [Sprint Plan](#sprint-plan)
 - [Features](#features)
-  - [Current](#current)
+- [Wireframes](#wireframes)
 - [Data Model](#data-model)
 - [Security, Performance & Accessibility](#security-performance--accessibility)
 - [Technologies](#technologies)
@@ -47,6 +47,7 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 *  Django admin for catalog management
 *  Static files via WhiteNoise; production ready Procfile
 
+---
 
 ## UX
 
@@ -104,6 +105,7 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 * **Deliverables:** Search/filter/sort; testimonials with moderation; enquiry form; SEO/sitemap; optional wishlist/lightbox/coupons/blog.
 * **DoD:** Lighthouse ≥ 90 perf/a11y/best‑practices; docs updated; release notes.
 
+---
 
 ## Features
 
@@ -132,6 +134,8 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 * **Config:** `dj-database-url`, `python-dotenv`
 * **Hosting:** Heroku (Heroku‑24 stack)
 
+---
+
 ## Data Model
 ### Entity relationship diagram
 ![ER diagram](assets/read_me_img/er_diagram.png)
@@ -143,6 +147,8 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 ![Admin/Photographer flow diagram](assets/read_me_img/admin_photographer_flow.png)
 ### Photo/photo variant/cloudinary flow diagram
 ![Photo/variant/cloudinary flow diagram](assets/read_me_img/photo_variant_cloudinary_flow.png)
+
+---
 
 ## Deployment
 ### Set up
@@ -184,15 +190,131 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 #### Open the deployed application:
 * heroku open
 * This will open the application at: https://wilderness-rabbit-47634ce133dc.herokuapp.com/
--
+
+---
+
 ## Testing
 ### Manual testing
-**Navigation**
-**Catalog**
-**Footer**
-**Login/Signup(Allauth)**
+ **Navigation**
+ | Test            | Steps                      | Expected Result                              | Actual Result |
+| --------------- | -------------------------- | -------------------------------------------- | ------------- |
+| Load homepage   | Visit site root URL        | Homepage loads without errors                | Pass          |
+| Navbar links    | Click each navigation link | User is routed to correct page               | Pass          |
+| Responsive menu | Resize screen to mobile    | Mobile menu displays and functions correctly | Pass          |
+| Logo link       | Click site logo            | Redirects to homepage                        | Pass          |
+| Broken links    | Click all visible links    | No broken or dead links                      | Pass          |
+
+ **Catalog**
+ | Test                  | Steps                                 | Expected Result                      | Actual Result |
+| --------------------- | ------------------------------------- | ------------------------------------ | ------------- |
+| View product list     | Navigate to Catalog page              | Products display correctly           | Pass          |
+| View product details  | Click a product                       | Product detail page loads            | Pass          |
+| Image display         | View product images                   | Images load and scale correctly      | Pass          |
+| Price accuracy        | Compare listing vs detail page price  | Prices match                         | Pass          |
+| Out-of-stock handling | View unavailable item (if applicable) | User is informed item is unavailable | Pass          |
+
+ **Cart**
+ | Test                      | Steps                         | Expected Result              | Actual Result |
+| ------------------------- | ----------------------------- | ---------------------------- | ------------- |
+| Add item to cart          | Click **Add to cart**         | Item appears in cart         | Pass          |
+| Add duplicate item        | Add same item twice           | Quantity increases correctly | Pass          |
+| Update quantity           | Change item quantity          | Totals recalculate correctly | Pass          |
+| Remove item               | Click **Remove**              | Item removed from cart       | Pass          |
+| Empty cart state          | Remove all items              | Empty cart message displayed | Pass          |
+| Cart persistence          | Navigate away and return      | Cart contents remain saved   | Pass          |
+| Cart total accuracy       | Add multiple items            | Total equals correct sum     | Pass          |
+| Checkout navigation       | Click **Checkout**            | Redirects to checkout/login  | Pass          |
+| Invalid quantity handling | Set quantity to 0 or negative | App prevents invalid input   | Pass          |
+| Cart access               | Click cart icon               | Cart page opens correctly    | Pass          |
+
+ **Footer**
+ | Test               | Steps                    | Expected Result                           | Actual Result |
+| ------------------ | ------------------------ | ----------------------------------------- | ------------- |
+| Footer visibility  | Scroll to bottom of page | Footer displays correctly                 | Pass          |
+| Social media links | Click social icons       | Correct external pages open               | Pass          |
+| Legal/policy links | Click policy links       | Correct policy pages load                 | Pass          |
+| Responsive footer  | View footer on mobile    | Footer displays properly on small screens | Pass          |
+
+ **Login/Signup/Logout(Allauth)**
+ | Test                 | Steps                     | Expected Result                | Actual Result |
+| -------------------- | ------------------------- | ------------------------------ | ------------- |
+| Register new account | Submit signup form        | Account created successfully   | Pass          |
+| Login valid user     | Enter correct credentials | User logs in successfully      | Pass          |
+| Login invalid user   | Enter wrong credentials   | Error message displayed        | Pass          |
+| Logout               | Click logout button       | User logged out and redirected | Pass          |
+| Password reset       | Request password reset    | Reset email sent               | Pass          |
+| Auth page validation | Submit empty form         | Validation errors shown        | Pass          |
+
 **Enquiries**
+| Test                  | Steps                            | Expected Result                | Actual Result |
+| --------------------- | -------------------------------- | ------------------------------ | ------------- |
+| Submit enquiry        | Complete and submit enquiry form | Form submits successfully      | Pass          |
+| Empty form validation | Submit empty form                | Error messages appear          | Pass          |
+| Email notification    | Submit valid enquiry             | Admin/user receives email      | Pass          |
+| Success confirmation  | Submit form                      | Confirmation message displayed | Pass          |
+| Data storage          | Submit enquiry                   | Data saved to database         | Pass          |
+
 **Testimonials**
+| Test                       | Steps                   | Expected Result                           | Actual Result |
+| -------------------------- | ----------------------- | ----------------------------------------- | ------------- |
+| View testimonials          | Open testimonials page  | Testimonials display correctly            | Pass          |
+| Submit testimonial         | Submit testimonial form | Testimonial saved or pending approval     | Pass          |
+| Content formatting         | View testimonial text   | Formatting displays correctly             | Pass          |
+| Moderation (if applicable) | Submit new testimonial  | Admin approval required before publishing | Pass          |
+
+**Checkout/Payments**
+| Test                                     | Steps                                             | Expected Result                                           | Actual Result |
+| ---------------------------------------- | ------------------------------------------------- | --------------------------------------------------------- | ------------- |
+| Access checkout from cart                | Add item → go to **Cart** → click **Checkout**    | Checkout page loads (or prompts login if required)        | Pass          |
+| Checkout form validation                 | Submit checkout form with empty/invalid fields    | Validation messages shown; cannot proceed                 | Pass          |
+| Checkout with valid details              | Fill in valid delivery/billing details → continue | Order summary displays correctly                          | Pass          |
+| Order summary accuracy                   | Add multiple items → proceed to checkout          | Items, quantities, and totals match cart                  | Pass          |
+| Payment success                          | Complete payment with valid card/test card        | Payment succeeds; order created; success message shown    | Pass          |
+| Payment failure handling                 | Use invalid card/test failure scenario            | Payment fails; user shown clear error; no order confirmed | Pass          |
+| Cancel payment / abandon flow            | Start payment then cancel/close                   | User returned safely; no confirmed order created          | Pass          |
+| Confirmation page                        | Complete checkout                                 | User redirected to confirmation page with order details   | Pass          |
+| Confirmation email                       | Complete checkout                                 | Confirmation email sent to user (if enabled)              | Pass          |
+| Stock/availability check (if applicable) | Attempt checkout with unavailable item            | Checkout prevents purchase or warns user                  | Pass          |
+| Auth-protected checkout (if applicable)  | Log out → attempt checkout                        | User redirected to login/signup                           | Pass          |
+
+**Admin/CRUD**
+| Test                               | Steps                                           | Expected Result                               | Actual Result |
+| ---------------------------------- | ----------------------------------------------- | --------------------------------------------- | ------------- |
+| Admin login                        | Navigate to `/admin` → login with admin account | Admin dashboard loads                         | Pass          |
+| Non-admin access blocked           | Log in as normal user → try `/admin`            | Access denied / redirected                    | Pass          |
+| Create product/item                | Admin → add new product → save                  | Product created and visible in catalog        | Pass          |
+| Read/view product/item             | Open product detail from site                   | Correct product details displayed             | Pass          |
+| Update/edit product/item           | Admin → edit product → save                     | Changes reflected on site                     | Pass          |
+| Delete product/item                | Admin → delete product                          | Product removed from site/catalog             | Pass          |
+| Create testimonial/enquiry entry   | Submit form on site                             | Entry appears in admin list                   | Pass          |
+| Update moderation status (if used) | Admin → approve/hide testimonial                | Testimonial visibility updates on site        | Pass          |
+| Delete testimonial/enquiry         | Admin → delete entry                            | Entry removed from database/admin list        | Pass          |
+| Image upload (if used)             | Add/edit product with image upload              | Image saves and displays correctly            | Pass          |
+| Permission controls                | Attempt restricted actions as non-admin         | Restricted actions unavailable                | Pass          |
+| Data integrity                     | Create/edit/delete items                        | No unexpected errors; data persists correctly | Pass          |
+
+### Automated testing
+#### Lighthouse 
+**Prefixes**
+**Postfixes**
+
+#### Wave (Accessibility)
+**Prefixes**
+**Postfixes**
+
+#### HTML Validator
+**Prefixes**
+**Postfixes**
+
+#### CSS Validator
+**Prefixes**
+**Postfixes**
+
+#### Jest
+**Prefixes**
+**Postfixes**
+
+#### Pytest
 
 ## Issues/Fixes
 
