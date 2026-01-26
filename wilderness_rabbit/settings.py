@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-load_dotenv() 
-import dj_database_url
 
+import dj_database_url
+load_dotenv() 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Media storage
@@ -29,9 +29,11 @@ USE_CLOUDINARY = bool(CLOUDINARY_URL)
 SECRET_KEY = os.getenv("SECRET_KEY", "generate-a-strong-random-string")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "0") == "1"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+ALLOWED_HOSTS = [h.strip() for h in os.getenv("ALLOWED_HOSTS", "").split(",") if h.strip()]
+
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",") if o.strip()]
 
 
 # Application definition
