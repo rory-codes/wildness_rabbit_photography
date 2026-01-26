@@ -107,7 +107,7 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 * **Discount codes:** As a shopper, I want to apply a promo code so I can get a discount.
 * **Guest checkout:** As a visitor, I want to check out as a guest so I don’t have to register.
 * **Social media logins:** As a visitor, I want quick sign-in so I can avoid passwords.
-* * **Owner notifications:** As the photographer, I want alerts for new orders/enquiries so I can respond quickly.
+* **Owner notifications:** As the photographer, I want alerts for new orders/enquiries so I can respond quickly.
 
 ### Sprint Plan 
 #### Sprint 1 – Foundations & Auth (Must)
