@@ -48,7 +48,11 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 - [Issues/Fixes](#issuesfixes)
   - [Unfixed / Known Issues](#unfixed--known-issues)
   - [Recently Fixed](#recently-fixed)
-- [FutureReleases](#future-releases)
+- [Future Releases](#future-releases)
+  - [Planned Enhancements](#planned-enhancements)
+- [Credits & Thanks](#credits-thanks)
+  - [Credits](#credits)
+  - [Thanks](#thanks)
 
 ---
 
