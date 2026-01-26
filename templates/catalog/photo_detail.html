@@ -1,9 +1,14 @@
 {% extends "base.html" %}
+
 {% block content %}
 <section class="section">
   <article class="photo-detail">
     {% if photo.image %}
-      <img class="photo-img" src="{{ photo.image.url }}" alt="{{ photo.title|default:'Photo' }}" loading="lazy" decoding="async">
+      <img class="photo-img"
+           src="{{ photo.image.url }}"
+           alt="{{ photo.title|default:'Photo' }}"
+           loading="lazy"
+           decoding="async">
     {% else %}
       <div class="photo-img placeholder" aria-hidden="true"></div>
     {% endif %}
@@ -15,20 +20,29 @@
 
       <h3 class="h2">Purchase options</h3>
 
-      {% with variants=photo.productvariant_set.filter(is_active=True, stock__gt=0) %}
-        {% if variants %}
-          {# Digital option #}
-          {% for v in variants %}
-            {% if v.kind == "digital" %}
+      {% if variants %}
+        <div class="variant-list">
+          {% for variant in variants %}
+            {% if variant.is_active and variant.stock|default:0 > 0 %}
               <div class="variant-card">
-                <div class="variant-name">Digital download</div>
-                <div class="variant-price">£{{ v.price|floatformat:2 }}</div>
+                <div class="variant-name">
+                  {% if variant.kind == "digital" %}
+                    Digital download
+                  {% elif variant.kind == "print" %}
+                    {{ variant.size }} {{ variant.finish|title }} print
+                  {% else %}
+                    {{ variant.kind|title }}
+                  {% endif %}
+                </div>
+
+                <div class="variant-price">
+                  £{{ variant.price|floatformat:2 }}
+                </div>
 
                 <form method="post" action="{% url 'cart:add' %}">
                   {% csrf_token %}
-                  <input type="hidden" name="variant_id" value="{{ v.id }}">
-                  <label>
-                    Qty
+                  <input type="hidden" name="variant_id" value="{{ variant.id }}">
+                  <label>Qty
                     <input type="number" name="quantity" min="1" value="1">
                   </label>
                   <button class="btn">Add to bag</button>
@@ -36,32 +50,10 @@
               </div>
             {% endif %}
           {% endfor %}
-
-          {# Print options #}
-          <div class="variant-list">
-            {% for v in variants %}
-              {% if v.kind == "print" %}
-                <div class="variant-card">
-                  <div class="variant-name">{{ v.size }} {{ v.finish|title }} print</div>
-                  <div class="variant-price">£{{ v.price|floatformat:2 }}</div>
-
-                  <form method="post" action="{% url 'cart:add' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="variant_id" value="{{ v.id }}">
-                    <label>
-                      Qty
-                      <input type="number" name="quantity" min="1" value="1">
-                    </label>
-                    <button class="btn">Add to bag</button>
-                  </form>
-                </div>
-              {% endif %}
-            {% endfor %}
-          </div>
-        {% else %}
-          <p>No purchasable variants for this photo.</p>
-        {% endif %}
-      {% endwith %}
+        </div>
+      {% else %}
+        <p>No purchasable variants for this photo.</p>
+      {% endif %}
     </div>
   </article>
 </section>
