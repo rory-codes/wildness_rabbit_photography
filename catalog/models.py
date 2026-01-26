@@ -72,9 +72,10 @@ class ProductVariant(models.Model):
 
     class Meta:
         constraints = [
-            models.CheckConstraint(
-                check=~models.Q(price__lt=0), name="variant_price_nonnegative"
-            )
+            models.UniqueConstraint(
+                fields=["photo", "size", "finish", "kind"],
+                name="unique_variant_per_photo_size_finish_kind",
+            ),
         ]
 
     def __str__(self):
