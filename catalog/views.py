@@ -35,14 +35,18 @@ def collection_detail(request, slug):
 
 def photo_detail(request, pk):
     photo = Photo.objects.get(pk=pk, is_published=True)
-    variants = photo.variants.all().order_by("kind", "size", "finish")
+    variants = (
+        photo.variants
+        .filter(is_active=True, stock__gt=0)
+        .order_by("kind", "size", "finish")
+    )
     digital = variants.filter(kind="digital").first()
     prints = variants.filter(kind="print")
-
     from_price = variants.aggregate(m=Min("price"))["m"]
 
     context = {
         "photo": photo,
+        "variants": variants,   
         "digital": digital,
         "prints": prints,
         "from_price": from_price,
