@@ -19,10 +19,10 @@
   <div class="accordion" id="collectionsAccordion">
     {% for c in collections %}
     <div class="accordion-item">
-      <div id="collapse-{{ c.slug }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ c.slug }}"
+      <div id="collapse-{{ c.slug }}" class="accordion-collapse collapse"  aria-label="Collection {{ c.name }}"
         data-bs-parent="#collectionsAccordion">
         <div class="accordion-body">
-          <h3 class="h2" style="margin:0 0 .5rem">{{ c.name }}</h3>
+          <h2 class="h2">{{ c.name }}</h2>
           <p class="mb-2">{{ c.photos.all|length }} items</p>
           <a class="btn btn-sm btn-outline-primary" href="{% url 'catalog:collection' c.slug %}"
             aria-label="View collection {{ c.name }}">

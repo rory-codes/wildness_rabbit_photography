@@ -248,7 +248,7 @@ body {
     appearance: none;
     border: 0;
     border-radius: .5rem;
-    background: var(--sage-500);
+    background: #1F2937;
     color: #fff;
     padding: .6rem 1rem;
     cursor: pointer;

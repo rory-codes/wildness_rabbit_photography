@@ -21,21 +21,21 @@
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="header" role="banner">
+  <header class="header">
     <div class="container header-inner">
       <a href="{% url 'catalog:index' %}" class="brand">
-        <img class="brand-logo" src="{% static 'img/logo.png' %}" alt="Wilderness Rabbit">
+        <img class="brand-logo" src="{% static 'img/logo.png' %}" alt="Wilderness Rabbit brand logo">
         <span class="brand-name">Wilderness Rabbit</span>
       </a>
 
       <input id="nav-toggle" type="checkbox" class="nav-toggle" aria-hidden="true">
-      <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation">
+      <label for="nav-toggle" class="nav-toggle-btn" aria-label="navigation toggling element">
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
       </label>
 
-      <nav id="site-nav" class="nav" aria-label="Main" role="navigation">
+      <nav id="site-nav" class="nav" aria-label="Main">
         <a href="{% url 'catalog:index' %}" class="nav-link">Home</a>
         <a href="{% url 'testimonials:index' %}" class="nav-link">Testimonials</a>
         <a href="{% url 'enquiries:index' %}" class="nav-link">Enquiries</a>
@@ -61,17 +61,17 @@
   </ul>
   {% endif %}
 
-  <main id="main" class="container" tabindex="-1" role="main">
+  <main id="main" class="container" tabindex="-1">
     {% block content %}{% endblock %}
     <div id="feedback" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
   </main>
 
-  <footer class="footer fixed-bottom" role="copyrightinfo">
+  <footer class="footer fixed-bottom">
     <div class="container">
     <p>&copy; 2025 Wilderness Rabbit Photography</p>
       <nav class="footer-nav">
-        <a class="footer-link" href="https://www.instagram.com"><i class="fa-brands fa-square-instagram"></i></a>
-        <a class="footer-link" href="https://www.facebook.com"><i class="fa-brands fa-square-facebook"></i></a>
+        <a class="footer-link" href="https://www.instagram.com"><i class="fa-brands fa-square-instagram"></i>Instagram</a>
+        <a class="footer-link" href="https://www.facebook.com"><i class="fa-brands fa-square-facebook"></i>Facebook</a>
       </nav>
     </div>
   </footer>
