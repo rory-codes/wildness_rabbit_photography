@@ -7,25 +7,48 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
  **Live site:** <https://wilderness-rabbit-47634ce133dc.herokuapp.com>  
  **Repository:** <https://github.com/rory-codes/wildness_rabbit_photography>
 
- ## Table of Contents
+## Table of Contents
+- [Wilderness Rabbit Photography](#wilderness-rabbit-photography)
 - [Overview](#overview)
+  - [Project goals](#project-goals)
 - [UX](#ux)
-  - [User profiles](#User-profiles)
-  - [User Stories (Agile)](#user-stories-agile)
-  - [MoSCoW](#moscow)
+  - [User profiles](#user-profiles)
+  - [User Stories](#user-stories)
   - [Sprint Plan](#sprint-plan)
 - [Features](#features)
-- [Wireframes](#wireframes)
-- [Data Model](#data-model)
+  - [Design](#design)
+    - [Brand/Typography](#brandtypography)
+    - [Color palette](#color-palette)
+    - [Wireframes](#wireframes)
+      - [Desktop](#desktop)
+      - [Tablet](#tablet)
+      - [Mobile](#mobile)
 - [Security, Performance & Accessibility](#security-performance--accessibility)
 - [Technologies](#technologies)
-- [Testing](#testing)
+- [Data Model](#data-model)
+  - [Entity relationship diagram](#entity-relationship-diagram)
+  - [Flow diagram](#flow-diagram)
+  - [Stripe flow diagram](#stripe-flow-diagram)
+  - [Admin flow diagram](#admin-flow-diagram)
+  - [Photo/variant/cloudinary flow diagram](#photophoto-variantcloudinary-flow-diagram)
 - [Deployment](#deployment)
-  - [Production (Heroku)](#production-heroku)
-  - [Local Development](#local-development)
-- [Environment Variables](#environment-variables)
-- [Credits](#credits)
-- [License](#license)
+  - [Version control](#version-control)
+  - [Set up](#set-up)
+  - [Local deployment](#local-deployment)
+  - [Deployment to Heroku](#deployment-to-heroku)
+- [Testing](#testing)
+  - [Manual testing](#manual-testing)
+  - [Automated testing](#automated-testing)
+    - [Lighthouse](#lighthouse)
+    - [Wave (Accessibility)](#wave-accessibility)
+    - [HTML Validator](#html-validator)
+    - [CSS Validator](#css-validator)
+    - [Jest](#jest)
+    - [Pytest](#pytest)
+- [Issues/Fixes](#issuesfixes)
+  - [Unfixed / Known Issues](#unfixed--known-issues)
+  - [Recently Fixed](#recently-fixed)
+- [FutureReleases](#future-releases)
 
 ---
 
@@ -60,7 +83,7 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 | **Photographer (Site Owner)** | Manages content & orders | Upload images, set pricing/variants, approve testimonials, see orders |
 
 ### User Stories 
-### Must haves
+#### Must haves
 * **Browse the gallery (catalog list + pagination):** As a visitor, I want to browse the photo catalog so I can discover images to buy.
 * **View photo detail:** As a visitor, I want a photo detail page so I can evaluate and buy.
 * **Cart: add/update/remove:** As a shopper, I want to manage my cart so I can purchase multiple items.
@@ -70,37 +93,37 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 * **Testimonials & Enquiries:** As a visitor, I want to leave feedback or ask a question.
 * **Owner: manage catalog:** As the photographer, I want to add/edit photos with prices and categories so I can run the shop.
 
-### Should haves
+#### Should haves
 * **Search & Filters:** As a visitor, I want to search and filter the gallery so I can find what I like quickly.
 * **Favourites:** As a customer, I want to favourite photos so I can revisit them later.
 * **Performance and image optimisation:** As a visitor, I want fast pages so the site feels snappy on mobile.
 * **Basic shipping and tax configuration:** As a shopper, I want charges to be clear so there are no surprises.
 * **Owner notifications:** As the photographer, I want alerts for new orders/enquiries so I can respond quickly.
 
-### Could haves
+#### Could haves
 * **Discount codes:** As a shopper, I want to apply a promo code so I can get a discount.
 * **Guest checkout:** As a visitor, I want to check out as a guest so I don’t have to register.
 * **Social media logins:** As a visitor, I want quick sign-in so I can avoid passwords.
 
-#### Sprint Plan 
-### Sprint 1 – Foundations & Auth (Must)
+### Sprint Plan 
+#### Sprint 1 – Foundations & Auth (Must)
 
 * **Goals:** Project scaffolding, deployment baseline, authentication.
 * **Deliverables:** Working Django app on Heroku with web dyno; allauth flows; base templates; gallery & product detail read‑only; Cloudinary & WhiteNoise configured; error pages.
 * **Definition of Done (DoD):** Deployed; lint passes; key happy‑path manual test plan complete. Risks/Mitigations: Env config drift → env sample & django-environ; Procfile/dynos → checklist.
 
-### Sprint 2 – Catalog & Cart (Must)
+#### Sprint 2 – Catalog & Cart (Must)
 
 * **Goals:** Shoppable catalog and robust basket.
 * **Deliverables:** Add/update/remove cart; totals; messages; responsive cards; category pages.
 * **DoD:** Unit tests for cart math; a11y checks; pagination stable under >100 items.
 
-### Sprint 3 – Checkout & Orders (Must/Should)
+#### Sprint 3 – Checkout & Orders (Must/Should)
 * **Goals:** Payments, orders, profiles.
 * **Deliverables:** Stripe checkout + webhooks; order creation; email receipts; profile with order history & saved address.
 * **DoD:** Test cards succeed/fail; webhook idempotency; email previews.
 
-### Sprint 4 – Content & Enhancements (Should/Could)
+#### Sprint 4 – Content & Enhancements (Should/Could)
 * **Goals:** Marketing & UX polish.
 * **Deliverables:** Search/filter/sort; testimonials with moderation; enquiry form; SEO/sitemap; optional wishlist/lightbox/coupons/blog.
 * **DoD:** Lighthouse ≥ 90 perf/a11y/best‑practices; docs updated; release notes.
@@ -108,13 +131,22 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 ---
 
 ## Features
+The application wilderness_rabbit_photography applied UI principles to align with Wilderness Rabbit brand and provide consistency throughout the build and deployment.
+This was achieved with the following:
 
-### Wireframes
-#### Desktop
+### Design
+#### Brand/Typography
+**The following typography and brand were used to create the logo and used through the application**
+
+#### Color palette
+**The following colour palette was used to create the brand and used in the root CSS to style the application:**
+
+#### Wireframes
+##### Desktop
 ![Desktop](assets/wireframes/wireframe_desktop.png)
-#### Tablet
+##### Tablet
 ![Tablet](assets/wireframes/wireframe_tablet.png)
-#### Mobile
+##### Mobile
 ![mobile](assets/wireframes/wireframe_mobile.png)
 
 ### Security, Performance & Accessibility
@@ -137,6 +169,8 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 ---
 
 ## Data Model
+The application uses data to help users as a primary tool to allow users to buy and download images from the application. For the data to be used efficiently it was important to map out the data and how it would be used. Therefore, the following diagrams were produced to help map out the app build and align with the development of the wilderness_rabbit_photography application:
+
 ### Entity relationship diagram
 ![ER diagram](assets/read_me_img/er_diagram.png)
 ### Flow diagram
@@ -151,10 +185,11 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 ---
 
 ## Deployment
-### Version control
-The site was developed in VS Code (vitual studio) and pushed through to the wilderness_rabbit_photography repository (Github).
+The application involved deployment locally and via heroku, this meant that a variety of concepts were implemented during development:
 
-Common git commands used in development envionment:
+### Version control
+**The site was developed in VS Code (vitual studio) and pushed through to the wilderness_rabbit_photography repository (Github).**
+**Git commands used in development envionment:**
 * git add <file>
 * git commit -m "commit message contents e.g: Update readme"
 * git push
@@ -194,7 +229,7 @@ Common git commands used in development envionment:
 * git push heroku main
 #### Run migrations and collect static files:
 * heroku run python manage.py migrate
-* heroku run python manage.py collectstatic
+* heroku run python manage.py collectstatic (using whitenoise- includding in middleware/settings.py)
 #### Open the deployed application:
 * heroku open
 * This will open the application at: https://wilderness-rabbit-47634ce133dc.herokuapp.com/
@@ -202,6 +237,8 @@ Common git commands used in development envionment:
 ---
 
 ## Testing
+The application required substantial testing to ensure that it worked locally and also in the deployed site. This was an integral part of the build and involved the following processes:
+
 ### Manual testing
  **Navigation**
  | Test            | Steps                      | Expected Result                              | Actual Result |
@@ -325,7 +362,54 @@ Common git commands used in development envionment:
 #### Pytest
 
 ## Issues/Fixes
+During and after development a number of issues were present and this involved fixes and workarounds to ensure the application was ready for submission by the submission data. 
+### Unfixed / Known Issues
 
+**Issue #1: Search & Filters not implemented**
+* Issue: Users cannot search photos or narrow results by category/price/availability.
+* Status: Unfixed (feature pending).
+* Workaround: Users browse via Catalog categories/navigation.
+* Fix planned: Add search query input + backend filtering (e.g., q, category, price range, availability) and preserve filters via querystring.
 
+**Issue #2: Favourites not available**
+* Issue: Users cannot save photos to a favourites list for later.
+* Status: Unfixed (feature pending).
+* Workaround: N/A
+* Fix planned: Create Favourite model linked to user + product, add UI toggle, and show favourites in profile.
 
+**Issue #3: Guest checkout not available**
+* Issue: Checkout requires an account/login (guest checkout not supported).
+* Status: Unfixed (feature pending).
+* Workaround: Users must create an account to purchase.
+* Fix planned: Allow “guest order” flow with email capture + order confirmation emails, while still offering signup.
+
+**Issue #4: Performance & image optimisation improvements outstanding**
+* Issue: Pages with multiple photos may load slower than ideal; images may not be optimised for size.
+* Status: Unfixed (planned improvement).
+* Workaround: Keep images reasonably sized and compressed before upload.
+* Fix planned: Add responsive images (srcset), stronger compression, lazy loading, and caching headers/CDN strategy where applicable.
+
+### Recently Fixed
+**Fix #1: Favicon typo causing 404 / console noise**
+* Issue: Browser requested favicon but received 404 due to incorrect path/name.
+* Solution: Corrected favicon reference/typo in the project.
+
+**Fix #2: Product variant selection displayed incorrect variants**
+* Issue: Photo detail page showed the wrong variant set (or inconsistent variant pricing/availability).
+* Solution: Updated template logic + view alignment so the detail page uses the correct product variant relationship and reflects availability and pricing properly.
+
+**Fix #3: Duplicate variants could be created**
+* Issue: Admin/catalog could end up with duplicate ProductVariant entries, leading to inconsistent display and purchasing options.
+* Solution: Enforced uniqueness at the model/database level to prevent duplicates.
+
+**Fix #4: Heroku deployment config issues (hosts/CSRF/HTTPS headers)**
+* Issue: Production could throw DisallowedHost / CSRF origin errors or behave inconsistently behind HTTPS proxy.
+* Solution: Updated settings to be environment-driven for ALLOWED_HOSTS and CSRF trusted origins, and added appropriate HTTPS/security headers for deployment.
+
+**Fix #5: Quantity input UX and JS validation improvements**
+* Issue: Quantity input on photo detail/purchase form lacked guidance/validation feedback.
+* Solution: Added base template JS reference and improved quantity input handling + lightweight validation/error handling and CSS readability/accessibility tweaks.
+
+## Future releases
+The development forecast involved more features but unfortunately due to time restraints and other commitments, the following were not implemented and therefore, future releases will focus on the following:
 
