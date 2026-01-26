@@ -1,3 +1,4 @@
+/* jshint esversion: 8 */
 /* global fetch */
 (function () {
   'use strict';
@@ -33,7 +34,7 @@
       }
       if (!qty || !validQty(qty)) {
         say('Please enter a whole number quantity of 1 or more.', 'error');
-        qty && qty.focus();
+        if (qty) { qty.focus(); }
         return;
       }
 
@@ -62,7 +63,6 @@
         }
 
         say('Added to cart. View your cart or continue browsing.', 'success');
-        // Return focus to the “Add to bag” for keyboard continuity
         btn.focus();
       } catch (err) {
         console.error(err);
@@ -74,12 +74,14 @@
     });
 
     // Live guard against invalid qty input
-    qty && qty.addEventListener('input', () => {
-      if (!validQty(qty)) {
-        qty.setCustomValidity('Please enter a whole number of 1 or more.');
-      } else {
-        qty.setCustomValidity('');
-      }
-    });
+    if (qty) {
+      qty.addEventListener('input', () => {
+        if (!validQty(qty)) {
+          qty.setCustomValidity('Please enter a whole number of 1 or more.');
+        } else {
+          qty.setCustomValidity('');
+        }
+      });
+    }
   });
 })();
