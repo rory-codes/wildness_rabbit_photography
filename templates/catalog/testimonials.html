@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section container">
+  <h1 class="h1">Testimonials</h1>
+
+  {% if user.is_authenticated %}
+    <form method="post" class="stack" style="max-width:680px;margin:0 auto 1rem;">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <label>
+        Your message
+        {{ form.message }}
+      </label>
+      <button class="btn" type="submit">Post testimonial</button>
+    </form>
+  {% else %}
+    <p><a class="btn" href="{% url 'account_login' %}">Sign in</a> to leave a testimonial.</p>
+  {% endif %}
+
+  <ul class="list-plain" style="max-width:680px;margin:1rem auto 0;">
+    {% for t in testimonials %}
+      <li class="card" style="padding:.75rem .9rem; margin:.5rem 0;">
+        <p style="margin:.25rem 0 0;">{{ t.message|linebreaksbr }}</p>
+        <small class="text-muted">— {{ t.user.get_username }} · {{ t.created_at|date:"M j, Y" }}</small>
+      </li>
+    {% empty %}
+      <li>No testimonials yet. Be the first!</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

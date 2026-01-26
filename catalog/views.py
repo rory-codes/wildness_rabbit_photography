@@ -3,6 +3,34 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Collection, Photo, ProductVariant
 from django.db.models import Min
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.urls import reverse
+from .models import Testimonial
+from .forms import TestimonialForm
+
+def testimonials(request):
+    qs = Testimonial.objects.filter(is_public=True)
+
+    if request.method == "POST":
+        if not request.user.is_authenticated:
+            messages.error(request, "Please sign in to leave a testimonial.")
+            return redirect("account_login")
+        form = TestimonialForm(request.POST)
+        if form.is_valid():
+            t = form.save(commit=False)
+            t.user = request.user
+            t.save()
+            messages.success(request, "Thanks for your testimonial!")
+            return redirect(reverse("testimonials"))
+    else:
+        form = TestimonialForm()
+
+    return render(request, "catalog/testimonials.html", {
+        "testimonials": qs,
+        "form": form,
+    })
+
 
 def home(request):
     cols = Collection.objects.filter(is_published=True).order_by("name")

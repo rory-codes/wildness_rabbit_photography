@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
+from django.conf import settings
 
 GBP = "GBP"
 CURRENCY_CHOICES = [(GBP, "GBP")]
@@ -18,7 +19,19 @@ VARIANT_KIND = [
 PRINT_SIZES = [("A5", "A5"), ("A4", "A4"), ("A3", "A3")]
 PRINT_FINISHES = [("matte", "Matte"), ("gloss", "Gloss")]
 
+class Testimonial(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    message = models.TextField(max_length=1500)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_public = models.BooleanField(default=True)  # keep it simple: show if True
 
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.user} – {self.created_at:%Y-%m-%d}"
+    
+    
 class Collection(models.Model):
     name = models.CharField(max_length=120)
     slug = models.SlugField(unique=True, blank=True)
