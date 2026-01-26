@@ -182,6 +182,12 @@ body {
     margin: .5rem 0 1rem
 }
 
+.section.centered > * {
+  max-width: 600px;    
+  margin-inline: auto;   
+  padding-inline: 1rem;     
+}
+
 /* Cards & Grid */
 .grid {
     display: grid;

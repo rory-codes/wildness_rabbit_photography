@@ -20,7 +20,7 @@
           {{ row.variant.photo.title }} — {{ row.variant.name }}
         </td>
         <td>
-          <form method="post" action="{% url 'cart:update' row.variant.id %}">
+          <form method="post" class="container" action="{% url 'cart:update' row.variant.id %}">
             {% csrf_token %}
             <input type="number" name="quantity" min="1" value="{{ row.qty }}" />
             <button class="btn" type="submit">Update</button>
@@ -46,7 +46,7 @@
     </tfoot>
   </table>
 
-  <form action="{% url 'checkout:start' %}" method="post">
+  <form classaction="{% url 'checkout:start' %}" method="post">
   {% csrf_token %}
   <button class="btn btn-primary">Checkout</button>
   <p><button href="{% url 'catalog:index' %}" class="btn btn-primary">Continue browsing</button></p>
