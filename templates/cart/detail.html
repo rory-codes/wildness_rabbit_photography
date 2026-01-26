@@ -46,14 +46,10 @@
     </tfoot>
   </table>
 
-  <form method="post" action="{% url 'cart:clear' %}">
-    {% csrf_token %}
-    <button class="btn" type="submit">Clear bag</button>
-  </form>
-
   <form action="{% url 'checkout:start' %}" method="post">
   {% csrf_token %}
   <button class="btn btn-primary">Checkout</button>
+  <p><button href="{% url 'catalog:index' %}" class="btn btn-primary">Continue browsing</button></p>
 </form>
 {% endif %}
 {% endblock %}

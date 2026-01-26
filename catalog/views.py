@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Collection, Photo, ProductVariant
+from django.db.models import Min
 
 def home(request):
     cols = Collection.objects.filter(is_published=True).order_by("name")
@@ -33,10 +34,18 @@ def collection_detail(request, slug):
     )
 
 def photo_detail(request, pk):
-    photo = get_object_or_404(Photo, pk=pk, is_published=True)
-    variants = photo.variants.filter(is_active=True).order_by("price")  
-    return render(
-        request,
-        "catalog/photo_detail.html",
-        {"photo": photo, "variants": variants},
-    )
+    photo = Photo.objects.get(pk=pk, is_published=True)
+    variants = photo.variants.all().order_by("kind", "size", "finish")
+    digital = variants.filter(kind="digital").first()
+    prints = variants.filter(kind="print")
+
+    from_price = variants.aggregate(m=Min("price"))["m"]
+
+    context = {
+        "photo": photo,
+        "digital": digital,
+        "prints": prints,
+        "from_price": from_price,
+        "has_variants": variants.exists(),
+    }
+    return render(request, "catalog/photo_detail.html", context)
