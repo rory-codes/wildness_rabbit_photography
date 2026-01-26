@@ -109,6 +109,8 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 * **Social media logins:** As a visitor, I want quick sign-in so I can avoid passwords.
 * **Owner notifications:** As the photographer, I want alerts for new orders/enquiries so I can respond quickly.
 
+![Project management-agile development](assets/read_me_img/project_agile.png)
+
 ### Sprint Plan 
 #### Sprint 1 – Foundations & Auth (Must)
 
@@ -351,19 +353,19 @@ The application required substantial testing to ensure that it worked locally an
 **Prefixes**
 ![Lighthouse Pre-fixes](assets/read_me_img/lighthouse_pre.png)
 **Postfixes**
-
+![Lighthouse Post-fixes](assets/read_me_img/lighthouse_post.png)
 #### Wave (Accessibility)
 **Prefixes**
-![Lighthouse Pre-fixes](assets/read_me_img/wave_pre.png)
+![Wave Pre-fixes](assets/read_me_img/wave_pre.png)
 **Postfixes**
-
+![Wave Post-fixes](assets/read_me_img/wave_post.png)
 #### HTML Validator
 **Prefixes**
 ![Lighthouse Pre-fixes](assets/read_me_img/html_pre.png)
 **Postfixes**
-
+![Lighthouse Post-fixes](assets/read_me_img/html_post.png)
 #### CSS Validator
-![Lighthouse Pre-fixes](assets/read_me_img/validation_css.png)
+![CSS Validation](assets/read_me_img/validation_css.png)
 
 #### JsHint
 ![Lighthouse Pre-fixes](assets/read_me_img/validation_jshint.png)
