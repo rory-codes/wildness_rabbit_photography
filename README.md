@@ -93,21 +93,21 @@ A Django-powered portfolio & print store for a photographer. Browse a curated ca
 * **Cart: add/update/remove:** As a shopper, I want to manage my cart so I can purchase multiple items.
 * **Checkout with Stripe:** As a shopper, I want a secure checkout so I can pay and receive confirmation.
 * **Allauth (signup/login/reset):** As a visitor, I want to create an account so I can track orders and checkout faster.
-* **Profile & Order History:** As a customer, I want to update my profile and see past orders.
 * **Testimonials & Enquiries:** As a visitor, I want to leave feedback or ask a question.
 * **Owner: manage catalog:** As the photographer, I want to add/edit photos with prices and categories so I can run the shop.
 
 #### Should haves
+* **Profile & Order History:** As a customer, I want to update my profile and see past orders.
 * **Search & Filters:** As a visitor, I want to search and filter the gallery so I can find what I like quickly.
 * **Favourites:** As a customer, I want to favourite photos so I can revisit them later.
 * **Performance and image optimisation:** As a visitor, I want fast pages so the site feels snappy on mobile.
 * **Basic shipping and tax configuration:** As a shopper, I want charges to be clear so there are no surprises.
-* **Owner notifications:** As the photographer, I want alerts for new orders/enquiries so I can respond quickly.
 
 #### Could haves
 * **Discount codes:** As a shopper, I want to apply a promo code so I can get a discount.
 * **Guest checkout:** As a visitor, I want to check out as a guest so I don’t have to register.
 * **Social media logins:** As a visitor, I want quick sign-in so I can avoid passwords.
+* * **Owner notifications:** As the photographer, I want alerts for new orders/enquiries so I can respond quickly.
 
 ### Sprint Plan 
 #### Sprint 1 – Foundations & Auth (Must)
