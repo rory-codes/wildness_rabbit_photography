@@ -1,6 +1,15 @@
+from django.conf import settings
 from django.db import models
 
+
 class Testimonial(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="testimonials",
+        null=True,
+        blank=True,
+    )
     name = models.CharField(max_length=120)
     quote = models.TextField()
     rating = models.PositiveSmallIntegerField(default=5)
