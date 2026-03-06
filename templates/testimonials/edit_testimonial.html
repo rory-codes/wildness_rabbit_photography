@@ -1,0 +1,9 @@
+<h1>Edit testimonial</h1>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save changes</button>
+</form>
+
+<p><a href="{% url 'testimonials:index' %}">Back to testimonials</a></p>
