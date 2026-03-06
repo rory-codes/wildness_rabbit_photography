@@ -22,7 +22,7 @@ def testimonials(request):
             t.user = request.user
             t.save()
             messages.success(request, "Thanks for your testimonial!")
-            return redirect(reverse("testimonials"))
+            return redirect("testimonials:index")
     else:
         form = TestimonialForm()
 

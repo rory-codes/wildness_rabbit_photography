@@ -23,7 +23,6 @@ from django.templatetags.static import static
 
 urlpatterns = [
     #path("", catalog_views.home, name="home"),
-    path("", include(("catalog.urls", "catalog"), namespace="catalog")),
     path("accounts/profile/", RedirectView.as_view(url="/", permanent=False)),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
@@ -32,6 +31,7 @@ urlpatterns = [
     path("enquiries/", include(("enquiries.urls", "enquiries"), namespace="enquiries")),
     path("orders/", include("orders.urls")),
     path("testimonials/", include(("testimonials.urls", "testimonials"), namespace="testimonials")),
+    path("", include(("catalog.urls", "catalog"), namespace="catalog")),
     path(
         "favicon.ico",
         RedirectView.as_view(url=static("favicon/favicon.ico"), permanent=True),
