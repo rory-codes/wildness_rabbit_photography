@@ -34,3 +34,39 @@ def create_testimonial(request):
             "form": form,
         },
     )
+
+def edit_testimonial(request, pk):
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+
+    if request.method == "POST":
+        form = TestimonialForm(request.POST, instance=testimonial)
+        if form.is_valid():
+            form.save()
+            return redirect("testimonials:index")
+    else:
+        form = TestimonialForm(instance=testimonial)
+
+    return render(
+        request,
+        "testimonials/edit_testimonial.html",
+        {
+            "form": form,
+            "testimonial": testimonial,
+        },
+    )
+
+
+def delete_testimonial(request, pk):
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+
+    if request.method == "POST":
+        testimonial.delete()
+        return redirect("testimonials:index")
+
+    return render(
+        request,
+        "testimonials/delete_testimonial.html",
+        {
+            "testimonial": testimonial,
+        },
+    )
