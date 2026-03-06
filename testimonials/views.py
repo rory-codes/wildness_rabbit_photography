@@ -1,11 +1,13 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+
 from .forms import TestimonialForm
 from .models import Testimonial
+
 
 def index(request):
     items = Testimonial.objects.filter(is_published=True).order_by("-created_at")
     form = TestimonialForm()
-
     return render(
         request,
         "testimonials/index.html",
@@ -16,11 +18,15 @@ def index(request):
     )
 
 
+@login_required
 def create_testimonial(request):
     if request.method == "POST":
         form = TestimonialForm(request.POST)
         if form.is_valid():
-            form.save()
+            testimonial = form.save(commit=False)
+            testimonial.user = request.user
+            testimonial.name = request.user.username
+            testimonial.save()
             return redirect("testimonials:index")
     else:
         form = TestimonialForm()
@@ -35,13 +41,18 @@ def create_testimonial(request):
         },
     )
 
+
+@login_required
 def edit_testimonial(request, pk):
-    testimonial = get_object_or_404(Testimonial, pk=pk)
+    testimonial = get_object_or_404(Testimonial, pk=pk, user=request.user)
 
     if request.method == "POST":
         form = TestimonialForm(request.POST, instance=testimonial)
         if form.is_valid():
-            form.save()
+            updated_testimonial = form.save(commit=False)
+            updated_testimonial.user = request.user
+            updated_testimonial.name = request.user.username
+            updated_testimonial.save()
             return redirect("testimonials:index")
     else:
         form = TestimonialForm(instance=testimonial)
@@ -56,8 +67,9 @@ def edit_testimonial(request, pk):
     )
 
 
+@login_required
 def delete_testimonial(request, pk):
-    testimonial = get_object_or_404(Testimonial, pk=pk)
+    testimonial = get_object_or_404(Testimonial, pk=pk, user=request.user)
 
     if request.method == "POST":
         testimonial.delete()

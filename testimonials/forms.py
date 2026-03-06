@@ -5,7 +5,7 @@ from .models import Testimonial
 class TestimonialForm(forms.ModelForm):
     class Meta:
         model = Testimonial
-        fields = ["name", "quote", "rating", "is_published"]
+        fields = ["quote", "rating"]
         widgets = {
             "quote": forms.Textarea(attrs={"rows": 4}),
         }

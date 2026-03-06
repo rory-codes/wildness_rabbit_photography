@@ -4,14 +4,21 @@
 <section class="section">
   <h1 class="h2">Testimonials</h1>
 
-  <div class="card mb-3">
-    <h2 class="h3">Leave a testimonial</h2>
-    <form method="post" action="{% url 'testimonials:add' %}">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
+  {% if request.user.is_authenticated %}
+    <div class="card mb-3">
+      <h2 class="h3">Leave a testimonial</h2>
+      <form method="post" action="{% url 'testimonials:add' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  {% else %}
+    <div class="card mb-3">
+      <p>You need to be logged in to leave a testimonial.</p>
+      <a href="{% url 'account_login' %}" class="btn btn-primary">Log in</a>
+    </div>
+  {% endif %}
 
   <ul class="list-plain">
     {% for t in items %}
@@ -19,10 +26,12 @@
         <p>"{{ t.quote }}"</p>
         <p><strong>— {{ t.name }}</strong> · {{ t.rating }}/5</p>
 
-        <div class="mt-2">
-          <a href="{% url 'testimonials:edit' t.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
-          <a href="{% url 'testimonials:delete' t.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
-        </div>
+        {% if request.user.is_authenticated and t.user == request.user %}
+          <div class="mt-2">
+            <a href="{% url 'testimonials:edit' t.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+            <a href="{% url 'testimonials:delete' t.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+          </div>
+        {% endif %}
       </li>
     {% empty %}
       <li>No testimonials yet.</li>
