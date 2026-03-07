@@ -4,6 +4,7 @@ import stripe
 
 from orders.models import Order, OrderItem
 from cart.cart import Cart
+from django.urls import reverse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -61,9 +62,9 @@ def start_checkout(request):
         mode="payment",
         line_items=line_items,
         success_url=request.build_absolute_uri(
-            "/checkout/success?session_id={CHECKOUT_SESSION_ID}"
-        ),
-        cancel_url=request.build_absolute_uri("/cart/"),
+        reverse("checkout:success")
+        ) + "?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url=request.build_absolute_uri(reverse("checkout:cancel")),
     )
 
     order.stripe_session_id = session.id

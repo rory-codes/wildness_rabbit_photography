@@ -159,7 +159,6 @@ WSGI_APPLICATION = 'wilderness_rabbit.wsgi.application'
 #Stripe
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
-STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
